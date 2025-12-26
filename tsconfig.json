@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    // Modules
+    // https://www.totaltypescript.com/tsconfig-cheat-sheet
+    // Modules    
     // https://aka.ms/tsconfig/module
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -29,7 +30,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noPropertyAccessFromIndexSignature": true,
+    // "noPropertyAccessFromIndexSignature": true,
     "noUncheckedSideEffectImports": true,
 
     // Completeness

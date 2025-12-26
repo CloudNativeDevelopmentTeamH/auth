@@ -1,7 +1,6 @@
 import app from './infrastructure/api/index.js';
+import config from './infrastructure/utils/config';
 
-const port = 3000;
-
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
+app.listen(config.port, () => {
+  return console.log(`Express is listening at http://localhost:${config.port}`);
 });
