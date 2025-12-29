@@ -5,7 +5,7 @@ import healthRouter from './routes/health';
 const app = express();
 app.use(express.json());
 
-app.use("/", (_, res) => {
+app.get("/", (_, res) => {
   res.send("Welcome to the API");
 });
 

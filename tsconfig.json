@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
     // https://www.totaltypescript.com/tsconfig-cheat-sheet
+    
     // Modules    
     // https://aka.ms/tsconfig/module
     "module": "esnext",
     "moduleResolution": "bundler",
-    "moduleDetection": "force",
+    "esModuleInterop": true,
     "customConditions": ["module"],
+
+    "moduleDetection": "force",
     "allowImportingTsExtensions": true,
     "allowArbitraryExtensions": true,
     "verbatimModuleSyntax": true,
@@ -18,7 +21,7 @@
     "declarationMap": true,
 
     // Interop Constraints
-    "esModuleInterop": true,
+    
     "isolatedModules": true,
 
     // Type Checking
@@ -35,5 +38,5 @@
 
     // Completeness
     "skipLibCheck": true
-  }
+  },
 }
