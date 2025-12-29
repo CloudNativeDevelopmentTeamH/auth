@@ -5,6 +5,7 @@ import type RegisterUserDto from "./dtos/register-user";
 import type PasswordCrypto from "./ports/password-crypto";
 import type UserRepository from "./ports/user-repository";
 import type Validator from "./ports/validator";
+import ValidationError from "./errors/validation";
 
 export default class RegisterUser {
     constructor(
@@ -13,10 +14,10 @@ export default class RegisterUser {
         private crypto: PasswordCrypto
     ) {}
 
-    async execute(data: RegisterUserDto): Promise<User> {
-        const { data: validatedData, errors } = this.validator.validate(data);
+    async execute(payload: RegisterUserDto): Promise<User> {
+        const { data: validatedData, errors } = this.validator.validate(payload);
         if (errors && errors.length > 0) {
-            throw new Error("Validation failed: " + errors.join(", "));
+            throw new ValidationError("Validation failed: " + errors.join(", "));
         }
 
         const existingUser = await this.userRepository.findByEmail(validatedData.email);

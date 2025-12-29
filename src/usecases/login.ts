@@ -1,4 +1,5 @@
 import type LoginUserDto from "./dtos/login-user";
+import ValidationError from "./errors/validation";
 import type PasswordCrypto from "./ports/password-crypto";
 import type TokenService from "./ports/token-service";
 import type UserRepository from "./ports/user-repository";
@@ -12,10 +13,10 @@ export default class LoginUser {
         private tokenService: TokenService
     ) {}
 
-    async execute(data: LoginUserDto): Promise<string> {
-        const { errors } = this.validator.validate(data);
+    async execute(payload: LoginUserDto): Promise<string> {
+        const { data, errors } = this.validator.validate(payload);
         if (errors && errors.length > 0) {
-            throw new Error("Validation failed: " + errors.join(", "));
+            throw new ValidationError("Validation failed: " + errors.join(", "));   
         }
 
         const user = await this.userRepository.findByEmail(data.email);
