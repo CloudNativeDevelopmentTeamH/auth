@@ -1,6 +1,6 @@
 import User from "./User";
 
-export default class Account extends User {
+export default class AuthUser extends User {
     passwordHash!: string;
     salt!: string;
 
