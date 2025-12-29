@@ -1,4 +1,4 @@
-import type UserRepository from "./ports/UserRepository";
+import type UserRepository from "./ports/userRepository";
 
 export default class LoginUser {
     constructor(
