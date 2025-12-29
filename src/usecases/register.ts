@@ -6,6 +6,7 @@ import type PasswordCrypto from "./ports/password-crypto";
 import type UserRepository from "./ports/user-repository";
 import type Validator from "./ports/validator";
 import ValidationError from "./errors/validation";
+import ConflictError from "./errors/conflict";
 
 export default class RegisterUser {
     constructor(
@@ -22,7 +23,7 @@ export default class RegisterUser {
 
         const existingUser = await this.userRepository.findByEmail(validatedData.email);
         if (existingUser) {
-            throw new Error("User already exists");
+            throw new ConflictError("User already exists");
         }
 
         const { passwordHash, salt } = this.crypto.hash(validatedData.password);
