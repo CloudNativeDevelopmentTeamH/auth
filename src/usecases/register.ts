@@ -1,19 +1,19 @@
 
-import type { NewAuthUser } from "../entities/AuthUser";
 import User from "../entities/User";
-import type RegisterUserDTO from "./dtos/RegisterUserDTO";
-import type Hasher from "./ports/hasher";
-import type UserRepository from "./ports/userRepository";
+import type { NewAuthUser } from "../entities/AuthUser";
+import type RegisterUserDto from "./dtos/register-user";
+import type PasswordCrypto from "./ports/password-crypto";
+import type UserRepository from "./ports/user-repository";
 import type Validator from "./ports/validator";
 
 export default class RegisterUser {
     constructor(
         private userRepository: UserRepository,
-        private validator: Validator<RegisterUserDTO>,
-        private hasher: Hasher
+        private validator: Validator<RegisterUserDto>,
+        private crypto: PasswordCrypto
     ) {}
 
-    async execute(data: RegisterUserDTO): Promise<User> {
+    async execute(data: RegisterUserDto): Promise<User> {
         const { data: validatedData, errors } = this.validator.validate(data);
         if (errors && errors.length > 0) {
             throw new Error("Validation failed: " + errors.join(", "));
@@ -24,7 +24,7 @@ export default class RegisterUser {
             throw new Error("User already exists");
         }
 
-        const { passwordHash, salt } = this.hasher.hash(validatedData.password);
+        const { passwordHash, salt } = this.crypto.hash(validatedData.password);
 
         const newUser: NewAuthUser = {
             email: validatedData.email,
