@@ -1,9 +1,11 @@
 import express from "express";
+import User from "../../../entities/User";
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.send("User route");
+  const user = new User(1, "John Doe", "john.doe@example.com");
+  res.send(user);
 });
 
 export default router;
