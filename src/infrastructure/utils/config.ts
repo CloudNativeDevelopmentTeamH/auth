@@ -1,13 +1,30 @@
 import 'dotenv/config';
 
+function getEnv(name: string): string {
+  if (!process.env[name]) {
+    throw new Error(`Missing env: ${name}`);
+  }
+  return process.env[name];
+} 
+
+function buildDatabaseUrl(): string {
+  const host = getEnv('DB_HOST');
+  const port = getEnv('DB_PORT');
+  const username = getEnv('DB_USERNAME');
+  const password = getEnv('DB_PASSWORD');
+  const databaseName = getEnv('DB_NAME');
+  return `postgresql://${username}:${password}@${host}:${port}/${databaseName}`;
+}
+
 export default {
-  port: process.env.PORT,
-  jwtSecret: process.env.JWT_SECRET,
+  port: Number(getEnv('PORT')),
+  // jwtSecret: getEnv('JWT_SECRET'),
   database: {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    databaseName: process.env.DB_NAME
+    host: getEnv('DB_HOST'),
+    port: Number(getEnv('DB_PORT')),
+    url: buildDatabaseUrl(),
+    username: getEnv('DB_USERNAME'),
+    password: getEnv('DB_PASSWORD'),
+    databaseName: getEnv('DB_NAME')
   }
 };
