@@ -1,5 +1,7 @@
 import type User from "../../entities/user";
 
-export default interface TokenGenerator {
-    generate(payload: User): string;
+export default interface TokenService {
+    issueToken(payload: User): string;
+    verifyToken(token: string): User | null;
+    invalidateToken(token: string): void;
 }
