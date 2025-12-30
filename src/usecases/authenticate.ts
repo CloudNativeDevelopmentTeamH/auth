@@ -2,7 +2,7 @@ import type User from "../entities/user";
 import UnauthorizedError from "./errors/unauthorized";
 import type TokenService from "./ports/token-service";
 
-export default class AuthorizeUser {
+export default class AuthenticateUser {
     constructor(private tokenService: TokenService) {}
 
     async execute(token: string): Promise<User> {
