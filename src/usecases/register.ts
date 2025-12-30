@@ -1,6 +1,6 @@
 
-import User from "../entities/User";
-import type { NewAuthUser } from "../entities/AuthUser";
+import User from "../entities/user";
+import type { NewAuthUser } from "../entities/auth-user";
 import type RegisterUserDto from "./dtos/register-user";
 import type PasswordCrypto from "./ports/password-crypto";
 import type UserRepository from "./ports/user-repository";

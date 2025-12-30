@@ -1,4 +1,5 @@
 import type LoginUserDto from "./dtos/login-user";
+import UnauthorizedError from "./errors/unauthorized";
 import ValidationError from "./errors/validation";
 import type PasswordCrypto from "./ports/password-crypto";
 import type TokenService from "./ports/token-service";
@@ -26,7 +27,7 @@ export default class LoginUser {
             return this.tokenService.generate(user);
         }
         else {
-            throw new Error("Invalid credentials");
+            throw new UnauthorizedError("Invalid email or password");
         }
     }
 }

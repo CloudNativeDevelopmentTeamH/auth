@@ -1,4 +1,4 @@
-import type User from "../../entities/User";
+import type User from "../../entities/user";
 
 export default interface TokenGenerator {
     generate(payload: User): string;

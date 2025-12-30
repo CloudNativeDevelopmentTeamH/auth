@@ -1,4 +1,4 @@
-import User from "./User";
+import User from "./user";
 
 export default class AuthUser extends User {
     password!: string;

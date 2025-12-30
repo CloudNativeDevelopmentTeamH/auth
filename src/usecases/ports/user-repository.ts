@@ -1,6 +1,6 @@
-import type { NewAuthUser } from "../../entities/AuthUser";
-import type AuthUser from "../../entities/AuthUser";
-import User from "../../entities/User";
+import type { NewAuthUser } from "../../entities/auth-user";
+import type AuthUser from "../../entities/auth-user";
+import User from "../../entities/user";
 
 export default interface UserRepository {
     getById(id: number): Promise<User>; // logged in, user must exist
