@@ -1,15 +1,23 @@
 import type PasswordCrypto from "../../usecases/ports/password-crypto";
 
 import * as argon2 from "argon2";
+import config from "../utils/config";
 
 export default class ArgonPasswordCrypto implements PasswordCrypto {
-    async hash(password: string): Promise<string> {
-        const passwordHash = await argon2.hash(password); 
-        return passwordHash;
-    }
+  private secret(): Buffer {
+    return Buffer.from(config.pepper, "utf8");
+  }
 
-    async compare(password: string, passwordHash: string): Promise<boolean> {
-        const isMatch = await argon2.verify(passwordHash, password);
-        return isMatch;
-    }
+  async hash(password: string): Promise<string> {
+    return argon2.hash(password, {
+      type: argon2.argon2id,
+      secret: this.secret(),
+    });
+  }
+
+  async compare(password: string, passwordHash: string): Promise<boolean> {
+    return argon2.verify(passwordHash, password, {
+      secret: this.secret(),
+    });
+  }
 }
