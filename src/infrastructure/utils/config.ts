@@ -18,8 +18,8 @@ function buildDatabaseUrl(): string {
 
 export default {
   port: Number(getEnv('PORT')),
-  // jwtSecret: getEnv('JWT_SECRET'),
   pepper: getEnv('PEPPER'),
+  jwtSecret: getEnv('JWT_SECRET'),
   database: {
     host: getEnv('DB_HOST'),
     port: Number(getEnv('DB_PORT')),
