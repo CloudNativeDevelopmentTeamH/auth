@@ -1,5 +1,5 @@
-import type AuthUser from "../../entities/auth-user";
-import type NewAuthUser from "../../entities/auth-user";
+import AuthUser from "../../entities/auth-user";
+import NewAuthUser from "../../entities/auth-user";
 import User from "../../entities/user";
 import type UserRepository from "../../usecases/ports/user-repository";
 
@@ -8,6 +8,23 @@ import usersTable from "./user-schema";
 import { eq } from "drizzle-orm";
 
 export default class PostgresUserRepository implements UserRepository {
+    async save(user: NewAuthUser): Promise<User> {
+        const rows = await db
+            .insert(usersTable)
+            .values({
+                ...user
+            })
+            .returning({
+                id: usersTable.id,
+                name: usersTable.name,
+                email: usersTable.email,
+            });
+
+        const row = rows[0]!; // no business throwing, driver should fail first
+
+        return new User(row.id, row.name, row.email);
+    }
+
     async getById(id: number): Promise<User | null> {
         const rows = await db
             .select({
@@ -33,6 +50,8 @@ export default class PostgresUserRepository implements UserRepository {
                 id: usersTable.id,
                 name: usersTable.name,
                 email: usersTable.email,
+                password: usersTable.password,
+                salt: usersTable.salt,
             })
             .from(usersTable)
             .where(eq(usersTable.email, email));
@@ -40,19 +59,20 @@ export default class PostgresUserRepository implements UserRepository {
         if (!rows[0]) {
             return null
         }
+        const row = rows[0];
 
-        return rows[0] as AuthUser;
-    }
-
-    async save(user: NewAuthUser): Promise<User> {
-        const result = await db.insert(usersTable).values({
-            ...user
-        }).returning();
-
-        return result[0] as User;
+        return new AuthUser(row.id, row.name, row.email, row.password, row.salt);
     }
 
     async deleteById(id: number): Promise<boolean> {
-        return Promise.resolve(true);
+        const deletedUser = await db
+            .delete(usersTable)
+            .where(eq(usersTable.id, id))
+            .returning();
+
+        if (deletedUser.length === 0) {
+            return false;
+        }
+        return true;
     }
 }

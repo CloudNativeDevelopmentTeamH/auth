@@ -1,10 +1,10 @@
 import type { NewAuthUser } from "../../entities/auth-user";
 import type AuthUser from "../../entities/auth-user";
-import User from "../../entities/user";
+import type User from "../../entities/user";
 
 export default interface UserRepository {
-    getById(id: number): Promise<User | null>; // logged in, user must exist
-    findByEmail(email: string): Promise<AuthUser | null>; // for login, may not exist
     save(user: NewAuthUser): Promise<User>;
+    getById(id: number): Promise<User | null>;
+    findByEmail(email: string): Promise<AuthUser | null>;
     deleteById(id: number): Promise<boolean>;
 }

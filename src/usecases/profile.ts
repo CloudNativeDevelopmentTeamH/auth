@@ -1,14 +1,16 @@
+import type User from "../entities/user";
 import UnauthorizedError from "./errors/unauthorized";
 import type TokenService from "./ports/token-service";
+
 import type UserRepository from "./ports/user-repository";
 
-export default class DeleteUser {
+export default class FetchUserProfile {
     constructor(
+        private tokenService: TokenService,
         private userRepository: UserRepository,
-        private tokenService: TokenService
     ) {}
 
-    async execute(token?: string): Promise<void> {
+    async execute(token?: string): Promise<User> {
         if (!token) {
             throw new UnauthorizedError("No token provided");
         }
@@ -18,6 +20,11 @@ export default class DeleteUser {
             throw new UnauthorizedError("Invalid or expired token");
         }
 
-        await this.userRepository.deleteById(userId);
-    }
+        const user = await this.userRepository.getById(userId);
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        return user;
+    } 
 }
