@@ -1,6 +1,6 @@
-import type { NewAuthUser } from "../../entities/auth-user";
 import type AuthUser from "../../entities/auth-user";
-import type User from "../../entities/user";
+import type NewAuthUser from "../../entities/auth-user";
+import User from "../../entities/user";
 import type UserRepository from "../../usecases/ports/user-repository";
 
 import db from "./drizzle-client";
@@ -16,21 +16,40 @@ export default class PostgresUserRepository implements UserRepository {
                 email: usersTable.email,
             })
             .from(usersTable)
-            .where(eq(usersTable.id, id));
+            .where(eq(usersTable.id, id))
+            .limit(1);
+ 
+        if (!rows[0]) {
+            return null;
+        }
+        const row = rows[0];
+
+        return new User(row.id, row.name, row.email);
+    }
+    
+    async findByEmail(email: string): Promise<AuthUser | null> {
+         const rows = await db
+            .select({
+                id: usersTable.id,
+                name: usersTable.name,
+                email: usersTable.email,
+            })
+            .from(usersTable)
+            .where(eq(usersTable.email, email));
 
         if (!rows[0]) {
             return null
         }
 
-        return rows[0] as User;
-    }
-    
-    async findByEmail(email: string): Promise<AuthUser | null> {
-        return Promise.resolve(null);
+        return rows[0] as AuthUser;
     }
 
     async save(user: NewAuthUser): Promise<User> {
-        return Promise.resolve({} as User);
+        const result = await db.insert(usersTable).values({
+            ...user
+        }).returning();
+
+        return result[0] as User;
     }
 
     async deleteById(id: number): Promise<boolean> {
