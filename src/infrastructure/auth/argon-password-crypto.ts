@@ -2,7 +2,6 @@ import type PasswordCrypto from "../../usecases/ports/password-crypto";
 
 import * as argon2 from "argon2";
 
-
 export default class ArgonPasswordCrypto implements PasswordCrypto {
     async hash(password: string): Promise<string> {
         const passwordHash = await argon2.hash(password); 

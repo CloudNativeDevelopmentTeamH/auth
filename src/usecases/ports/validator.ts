@@ -1,4 +1,4 @@
-interface ValidatorResult<T> {
+export type ValidatorResult<T> = {
     data: T;
     errors?: string[];
 }
