@@ -23,7 +23,7 @@ export default class LoginUser {
         }
 
         const user = await this.userRepository.findByEmail(data.email);
-        const isPasswordValid = user ? this.crypto.compare(data.password, user.password, user.salt) : false;
+        const isPasswordValid = user ? this.crypto.compare(data.password, user.password) : false;
         
         if (user && isPasswordValid) {
             return this.tokenService.issueToken(user);

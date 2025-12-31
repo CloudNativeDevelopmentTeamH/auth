@@ -51,7 +51,6 @@ export default class PostgresUserRepository implements UserRepository {
                 name: usersTable.name,
                 email: usersTable.email,
                 password: usersTable.password,
-                salt: usersTable.salt,
             })
             .from(usersTable)
             .where(eq(usersTable.email, email));
@@ -61,7 +60,7 @@ export default class PostgresUserRepository implements UserRepository {
         }
         const row = rows[0];
 
-        return new AuthUser(row.id, row.name, row.email, row.password, row.salt);
+        return new AuthUser(row.id, row.name, row.email, row.password);
     }
 
     async deleteById(id: number): Promise<boolean> {

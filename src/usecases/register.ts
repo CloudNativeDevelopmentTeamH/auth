@@ -28,13 +28,12 @@ export default class RegisterUser {
             throw new ConflictError("User already exists");
         }
 
-        const { passwordHash, salt } = this.crypto.hash(validatedData.password);
+        const passwordHash = await this.crypto.hash(validatedData.password);
 
         const newUser: NewAuthUser = {
             email: validatedData.email,
             name: validatedData.name,
             password: passwordHash,
-            salt 
         };
         return this.userRepository.save(newUser);
     }
