@@ -25,7 +25,7 @@ export default class LoginUser implements LoginUserUseCase {
     }
 
     const user = await this.userRepository.findByEmail(data.email);
-    const isPasswordValid = user ? this.crypto.compare(data.password, user.password) : false;
+    const isPasswordValid = user ? await this.crypto.compare(data.password, user.password) : false;
         
     if (user && isPasswordValid) {
       return this.tokenService.issueToken(user);

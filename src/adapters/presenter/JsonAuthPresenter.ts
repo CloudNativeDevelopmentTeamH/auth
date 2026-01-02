@@ -1,7 +1,16 @@
 import type User from "../../entities/user";
 import AppError from "../../usecases/errors/app";
+import type ErrorDTO from "../dtos/Error";
 import type HTTPResponse from "../dtos/HttpResponse";
 import type AuthPresenter from "./AuthPresenter";
+
+const COOKIE_NAME = "auth_token";
+const COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: true,
+  path: "/",
+  sameSite: "strict" as const
+}
 
 export default class JsonAuthPresenter implements AuthPresenter {
   presentRegister(user: User): HTTPResponse<{ user: User }> {
@@ -11,19 +20,13 @@ export default class JsonAuthPresenter implements AuthPresenter {
     };
   }
 
-  presentLogin(token: string): HTTPResponse<{ token: string }> {
+  presentLogin(token: string): HTTPResponse {
     return {
       statusCode: 200,
       cookie: {
-        name: "auth_token",
+        name: COOKIE_NAME,
         value: token,
-        options: {
-          httpOnly: true,
-          secure: true,
-          maxAge: 24 * 60 * 60, // 1 day
-          path: "/",
-          sameSite: "strict"
-        }
+        options: { ...COOKIE_OPTIONS },
       }
     };
   }
@@ -46,14 +49,11 @@ export default class JsonAuthPresenter implements AuthPresenter {
     return {
       statusCode: 204,
       cookie: {
-        name: "auth_token",
+        name: COOKIE_NAME,
         value: "",
         options: {
-          httpOnly: true,
-          secure: true,
+          ...COOKIE_OPTIONS,
           maxAge: 0, // Expire the cookie immediately
-          path: "/",
-          sameSite: "strict"
         }
       }
     };
@@ -65,16 +65,26 @@ export default class JsonAuthPresenter implements AuthPresenter {
     };
   }
 
-  presentError(error: unknown): HTTPResponse<{ error: string }> {
+  presentError(error: unknown): HTTPResponse<ErrorDTO> {
+    console.log(error);
     if (error instanceof AppError) {
       return {
         statusCode: error.status,
-        body: { error: error.code +  ": " + error.message },
+        body: { 
+          error: { 
+            code: error.code,
+            message: error.message } 
+        }
       };
     }     
     return {
       statusCode: 500,
-      body: { error: "INTERNAL_SERVER_ERROR: An unexpected error occurred." },
+      body: { 
+        error: {
+          code: "INTERNAL_SERVER_ERROR",
+          message: "An unexpected error occurred."
+        }
+      },
     }   
   }
 }

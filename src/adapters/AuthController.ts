@@ -22,19 +22,20 @@ export default class AuthController {
   ) {}
 
   async register(req: HttpRequest) {
-    const { email, name, password } = req.body as RegisterUserInputDTO;
     try {
+      const { email, name, password } = req.body as RegisterUserInputDTO;
       const user = await this.registerUser.execute({ email, name, password });
       return this.authPresenter.presentRegister(user);
     }
     catch (error) {
+      console.log(error);
       return this.authPresenter.presentError(error);
     }
   }
 
   async login(req: HttpRequest) {
-    const { email, password } = req.body as LoginUserInputDTO;
     try {
+      const { email, password } = req.body as LoginUserInputDTO;
       const token = await this.loginUser.execute({ email, password });
       return this.authPresenter.presentLogin(token);
     }
@@ -44,8 +45,8 @@ export default class AuthController {
   }
 
   async profile(req: HttpRequest) {
-    const token = req.token;
     try {
+      const token = req.token;
       const user = await this.fetchUserProfile.execute(token);
       return this.authPresenter.presentProfile(user);
     }
@@ -55,8 +56,8 @@ export default class AuthController {
   }
 
   async authenticate(req: HttpRequest) {
-    const token = req.token;
     try {
+      const token = req.token;
       const userId = await this.authenticateUser.execute(token);
       return this.authPresenter.presentAuthenticate(userId);
     }
@@ -66,8 +67,8 @@ export default class AuthController {
   }
 
   async logout(req: HttpRequest) {
-    const token = req.token;
     try {
+      const token = req.token;
       await this.logoutUser.execute(token);
       return this.authPresenter.presentLogout();
     }
@@ -77,8 +78,8 @@ export default class AuthController {
   }
 
   async delete(req: HttpRequest) {
-    const token = req.token;
     try {
+      const token = req.token;
       await this.deleteUser.execute(token);
       return this.authPresenter.presentDelete();
     }

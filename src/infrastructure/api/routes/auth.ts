@@ -4,14 +4,17 @@ import controller from "../auth.container";
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
-  const result = await controller.register(req.body);
+  const result = await controller.register({ body: req.body });
   res.status(result.statusCode).json(result.body);
 });
 
 router.get("/login", async (req, res) => {
-  const { email, password } = req.query;
+  const { email, password } = req.body;
   const result = await controller.login({ body: { email, password } });
-  res.status(result.statusCode).json(result.body);
+  res
+    .status(result.statusCode)
+    .cookie(result.cookie!.name, result.cookie!.value, result.cookie!.options)
+    .json(result.body);
 });
 
 router.get("/profile", async (req, res) => {

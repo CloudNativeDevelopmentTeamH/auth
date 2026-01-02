@@ -25,7 +25,7 @@ export default class RegisterUser implements RegisterUserUseCase {
 
     const existingUser = await this.userRepository.findByEmail(validatedData.email);
     if (existingUser) {
-      throw new ConflictError("User already exists");
+      throw new ConflictError("User with this email already exists");
     }
 
     const passwordHash = await this.crypto.hash(validatedData.password);
