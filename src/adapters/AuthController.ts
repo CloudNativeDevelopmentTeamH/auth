@@ -1,4 +1,4 @@
-import type ControllerRequest from "./Request";
+import type HttpRequest from "./HttpRequest";
 
 import type LoginUser from "../usecases/login";
 import type RegisterUser from "../usecases/register";
@@ -19,36 +19,36 @@ export default class AuthController {
         private DeleteUser: DeleteUser
     ) {}
 
-    async register(req: ControllerRequest) {
+    async register(req: HttpRequest) {
         const { email, name, password } = req.body as RegisterUserInputDTO;
         const user = await this.RegisterUser.execute({ email, name, password });
         return { user };
     }
 
-    async login(req: ControllerRequest) {
+    async login(req: HttpRequest) {
         const { email, password } = req.body as LoginUserInputDTO;
         const token = await this.LoginUser.execute({ email, password });
         return { token };
     }
 
-    async profile(req: ControllerRequest) {
+    async profile(req: HttpRequest) {
         const token = req.token;
         const user = await this.FetchUserProfile.execute(token);
         return { user };
     }
 
-    async authenticate(req: ControllerRequest) {
+    async authenticate(req: HttpRequest) {
         const token = req.token;
         const user = await this.AuthenticateUser.execute(token);
         return { user };
     }
 
-    async logout(req: ControllerRequest) {
+    async logout(req: HttpRequest) {
         const token = req.token;
         await this.LogoutUser.execute(token);
     }
 
-    async delete(req: ControllerRequest) {
+    async delete(req: HttpRequest) {
         const token = req.token;
         await this.DeleteUser.execute(token);
     }
