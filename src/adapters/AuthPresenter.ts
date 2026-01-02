@@ -34,10 +34,10 @@ export default class AuthPresenter {
         };
     }
 
-    presentAuthenticate(user: User): HTTPResponse<{ user: User }> {
+    presentAuthenticate(userId: number): HTTPResponse<{ userId: number }> {
         return {
             statusCode: 200,
-            body: { user },
+            body: { userId },
         };
     }
 
