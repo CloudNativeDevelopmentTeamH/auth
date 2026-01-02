@@ -11,30 +11,30 @@ import ValidationError from "./errors/validation";
 import ConflictError from "./errors/conflict";
 
 export default class RegisterUser implements RegisterUserUseCase {
-    constructor(
+  constructor(
         private userRepository: UserRepository,
         private validator: Validator<RegisterUserInputDTO>,
         private crypto: PasswordCrypto
-    ) {}
+  ) {}
 
-    async execute(payload: RegisterUserInputDTO): Promise<User> {
-        const { data: validatedData, errors } = this.validator.validate(payload);
-        if (errors && errors.length > 0) {
-            throw new ValidationError("Validation failed: " + errors.join(", "));
-        }
-
-        const existingUser = await this.userRepository.findByEmail(validatedData.email);
-        if (existingUser) {
-            throw new ConflictError("User already exists");
-        }
-
-        const passwordHash = await this.crypto.hash(validatedData.password);
-
-        const newUser: NewAuthUser = {
-            email: validatedData.email,
-            name: validatedData.name,
-            password: passwordHash,
-        };
-        return this.userRepository.save(newUser);
+  async execute(payload: RegisterUserInputDTO): Promise<User> {
+    const { data: validatedData, errors } = this.validator.validate(payload);
+    if (errors && errors.length > 0) {
+      throw new ValidationError("Validation failed: " + errors.join(", "));
     }
+
+    const existingUser = await this.userRepository.findByEmail(validatedData.email);
+    if (existingUser) {
+      throw new ConflictError("User already exists");
+    }
+
+    const passwordHash = await this.crypto.hash(validatedData.password);
+
+    const newUser: NewAuthUser = {
+      email: validatedData.email,
+      name: validatedData.name,
+      password: passwordHash,
+    };
+    return this.userRepository.save(newUser);
+  }
 }

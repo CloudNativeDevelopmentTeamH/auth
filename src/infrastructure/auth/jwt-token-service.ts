@@ -28,6 +28,7 @@ export default class JwtTokenService implements TokenService {
     return id;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   invalidateToken(token: string): void {
     // Stateless JWTs cannot be invalidated server-side without state (blacklist/denylist).
     // Use short TTLs + refresh tokens, or implement a token blacklist using jti.

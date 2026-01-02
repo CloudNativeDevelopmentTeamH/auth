@@ -3,6 +3,6 @@ export default abstract class AppError extends Error {
     readonly abstract status: number;
     
     constructor(message: string) {
-        super(message);
+      super(message);
     }
 }

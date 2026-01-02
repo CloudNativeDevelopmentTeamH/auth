@@ -13,6 +13,9 @@ export default defineConfig([
     languageOptions: { 
       globals: globals.browser 
     },
+    rules:       {
+      "indent": ["error", 2]
+    }
   },
   tseslint.configs.recommended,
 ]);
