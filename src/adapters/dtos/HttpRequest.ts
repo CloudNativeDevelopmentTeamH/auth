@@ -1,4 +1,4 @@
 export default interface HttpRequest {
-    body: unknown;
+    body?: unknown;
     token?: string;
 }
