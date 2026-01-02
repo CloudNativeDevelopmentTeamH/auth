@@ -8,5 +8,5 @@ export default interface AuthPresenter {
     presentAuthenticate(userId: number): HTTPResponse<{ userId: number }>;
     presentLogout(): HTTPResponse;
     presentDelete(): HTTPResponse;
-    presentError(error: Error): HTTPResponse<{ error: string }>;
+    presentError(error: unknown): HTTPResponse<{ error: string }>;
 }

@@ -8,7 +8,7 @@ import type AuthenticateUser from "../usecases/authenticate";
 import type DeleteUser from "../usecases/delete";
 import type RegisterUserInputDTO from "../usecases/dtos/register-user-input";
 import type LoginUserInputDTO from "../usecases/dtos/login-user-input";
-import type AuthPresenter from "./presenter/JsonAuthPresenter";
+import type AuthPresenter from "./presenter/AuthPresenter";
 
 export default class AuthController {
   constructor(

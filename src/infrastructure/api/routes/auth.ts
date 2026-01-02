@@ -7,7 +7,7 @@ import FetchUserProfile from "../../../usecases/profile";
 import LogoutUser from "../../../usecases/logout";
 import AuthenticateUser from "../../../usecases/authenticate";
 import DeleteUser from "../../../usecases/delete";
-import AuthPresenter from "../../../adapters/AuthPresenter";
+import JsonAuthPresenter from "../../../adapters/presenter/JsonAuthPresenter";
 
 const controller = new AuthController(
   new RegisterUser(),
@@ -16,7 +16,7 @@ const controller = new AuthController(
   new LogoutUser(),
   new AuthenticateUser(),
   new DeleteUser(),
-  new AuthPresenter(),
+  new JsonAuthPresenter(),
 );
 
 const router = express.Router();
