@@ -6,6 +6,8 @@ import type FetchUserProfile from "../usecases/profile";
 import type LogoutUser from "../usecases/logout";
 import type AuthenticateUser from "../usecases/authenticate";
 import type DeleteUser from "../usecases/delete";
+import type RegisterUserInputDTO from "../usecases/dtos/register-user-input";
+import type LoginUserInputDTO from "../usecases/dtos/login-user-input";
 
 export default class AuthController {
     constructor(
@@ -18,13 +20,13 @@ export default class AuthController {
     ) {}
 
     async register(req: ControllerRequest) {
-        const { email, name, password } = req.body as { email: string; name: string; password: string };
+        const { email, name, password } = req.body as RegisterUserInputDTO;
         const user = await this.RegisterUser.execute({ email, name, password });
         return { user };
     }
 
     async login(req: ControllerRequest) {
-        const { email, password } = req.body as { email: string; password: string };
+        const { email, password } = req.body as LoginUserInputDTO;
         const token = await this.LoginUser.execute({ email, password });
         return { token };
     }
