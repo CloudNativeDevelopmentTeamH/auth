@@ -1,4 +1,4 @@
-import type HttpRequest from "./HttpRequest";
+import type HttpRequest from "./dtos/HttpRequest";
 
 import type LoginUser from "../usecases/login";
 import type RegisterUser from "../usecases/register";
@@ -8,7 +8,7 @@ import type AuthenticateUser from "../usecases/authenticate";
 import type DeleteUser from "../usecases/delete";
 import type RegisterUserInputDTO from "../usecases/dtos/register-user-input";
 import type LoginUserInputDTO from "../usecases/dtos/login-user-input";
-import type AuthPresenter from "./AuthPresenter";
+import type AuthPresenter from "./presenter/JsonAuthPresenter";
 
 export default class AuthController {
     constructor(
@@ -86,6 +86,4 @@ export default class AuthController {
             return this.authPresenter.presentError(error);
         }
     }
-
-    
 }

@@ -1,8 +1,9 @@
-import type User from "../entities/user";
-import AppError from "../usecases/errors/app";
-import type HTTPResponse from "./HttpResponse";
+import type User from "../../entities/user";
+import AppError from "../../usecases/errors/app";
+import type HTTPResponse from "../dtos/HttpResponse";
+import type AuthPresenter from "./AuthPresenter";
 
-export default class AuthPresenter {
+export default class JsonAuthPresenter implements AuthPresenter {
     presentRegister(user: User): HTTPResponse<{ user: User }> {
         return {
             statusCode: 201,
