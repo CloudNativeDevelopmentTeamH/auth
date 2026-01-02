@@ -2,6 +2,7 @@ import type Validator from "../../usecases/ports/outbound/validator";
 import type { ValidatorResult } from "../../usecases/ports/outbound/validator";
 
 import Ajv from "ajv";
+import addFormats from "ajv-formats";
 import type { JSONSchemaType, ValidateFunction } from "ajv";
 
 export default class AjvValidator<T> implements Validator<T> {
@@ -9,6 +10,7 @@ export default class AjvValidator<T> implements Validator<T> {
 
   constructor(JsonSchema: JSONSchemaType<T>) {
     const ajv = new Ajv();
+    addFormats(ajv);
     this.validateFunction = ajv.compile(JsonSchema);
   } 
 
