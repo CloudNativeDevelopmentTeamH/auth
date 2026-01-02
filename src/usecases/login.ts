@@ -9,7 +9,6 @@ import type Validator from "./ports/outbound/validator";
 import UnauthorizedError from "./errors/unauthorized";
 import ValidationError from "./errors/validation";
 
-
 export default class LoginUser implements LoginUserUseCase {
   constructor(
         private userRepository: UserRepository,

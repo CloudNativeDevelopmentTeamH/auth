@@ -11,10 +11,14 @@ router.post("/register", async (req, res) => {
 router.get("/login", async (req, res) => {
   const { email, password } = req.body;
   const result = await controller.login({ body: { email, password } });
-  res
-    .status(result.statusCode)
-    .cookie(result.cookie!.name, result.cookie!.value, result.cookie!.options)
-    .json(result.body);
+
+  if (result.cookie) {
+    res
+      .status(result.statusCode)
+      .cookie(result.cookie!.name, result.cookie!.value, result.cookie!.options)
+      .json(result.body);
+  }
+  res.status(result.statusCode).json(result.body);
 });
 
 router.get("/profile", async (req, res) => {

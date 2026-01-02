@@ -81,6 +81,7 @@ export default class AuthController {
     try {
       const token = req.token;
       await this.deleteUser.execute(token);
+      await this.logoutUser.execute(token);
       return this.authPresenter.presentDelete();
     }
     catch (error) {
