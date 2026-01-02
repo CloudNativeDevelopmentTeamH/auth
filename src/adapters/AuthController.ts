@@ -52,4 +52,6 @@ export default class AuthController {
         const token = req.token;
         await this.DeleteUser.execute(token);
     }
+
+    
 }

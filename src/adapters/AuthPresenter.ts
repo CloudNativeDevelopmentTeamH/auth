@@ -1,0 +1,73 @@
+import type User from "../entities/user";
+import type AppError from "../usecases/errors/app";
+import type HTTPResponse from "./HttpResponse";
+
+export default class AuthPresenter {
+    presentRegister(user: User): HTTPResponse<{ user: User }> {
+        return {
+            statusCode: 201,
+            body: { user },
+        };
+    }
+
+    presentLogin(token: string): HTTPResponse<{ token: string }> {
+        return {
+            statusCode: 200,
+            cookie: {
+                name: "auth_token",
+                value: token,
+                options: {
+                    httpOnly: true,
+                    secure: true,
+                    maxAge: 24 * 60 * 60, // 1 day
+                    path: "/",
+                    sameSite: "strict"
+                }
+            }
+        };
+    }
+
+    presentProfile(user: User): HTTPResponse<{ user: User }> {
+        return {
+            statusCode: 200,
+            body: { user },
+        };
+    }
+
+    presentAuthenticate(user: User): HTTPResponse<{ user: User }> {
+        return {
+            statusCode: 200,
+            body: { user },
+        };
+    }
+
+    presentLogout(): HTTPResponse {
+        return {
+            statusCode: 204,
+            cookie: {
+                name: "auth_token",
+                value: "",
+                options: {
+                    httpOnly: true,
+                    secure: true,
+                    maxAge: 0, // Expire the cookie immediately
+                    path: "/",
+                    sameSite: "strict"
+                }
+            }
+        };
+    }
+
+    presentDelete(): HTTPResponse {
+        return {
+            statusCode: 204,
+        };
+    }
+
+    presentError(error: AppError): HTTPResponse<{ error: string }> {
+        return {
+            statusCode: error.status,
+            body: { error: error.code +  ": " + error.message },
+        };
+    }
+}
