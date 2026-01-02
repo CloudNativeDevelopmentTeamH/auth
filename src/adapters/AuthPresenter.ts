@@ -1,5 +1,5 @@
 import type User from "../entities/user";
-import type AppError from "../usecases/errors/app";
+import AppError from "../usecases/errors/app";
 import type HTTPResponse from "./HttpResponse";
 
 export default class AuthPresenter {
@@ -64,10 +64,16 @@ export default class AuthPresenter {
         };
     }
 
-    presentError(error: AppError): HTTPResponse<{ error: string }> {
+    presentError(error: unknown): HTTPResponse<{ error: string }> {
+        if (error instanceof AppError) {
+            return {
+                statusCode: error.status,
+                body: { error: error.code +  ": " + error.message },
+            };
+        }     
         return {
-            statusCode: error.status,
-            body: { error: error.code +  ": " + error.message },
-        };
+            statusCode: 500,
+            body: { error: "INTERNAL_SERVER_ERROR: An unexpected error occurred." },
+        }   
     }
 }
