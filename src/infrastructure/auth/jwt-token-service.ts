@@ -1,4 +1,4 @@
-import type TokenService from "../../usecases/ports/token-service";
+import type TokenService from "../../usecases/ports/outbound/token-service";
 import type User from "../../entities/user";
 
 import jwt from "jsonwebtoken";

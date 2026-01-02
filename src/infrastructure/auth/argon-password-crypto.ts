@@ -1,4 +1,4 @@
-import type PasswordCrypto from "../../usecases/ports/password-crypto";
+import type PasswordCrypto from "../../usecases/ports/outbound/password-crypto";
 
 import * as argon2 from "argon2";
 import config from "../utils/config";

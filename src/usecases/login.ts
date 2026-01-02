@@ -1,9 +1,9 @@
 import type LoginUserInputDTO from "./dtos/login-user-input";
 
-import type PasswordCrypto from "./ports/password-crypto";
-import type TokenService from "./ports/token-service";
-import type UserRepository from "./ports/user-repository";
-import type Validator from "./ports/validator";
+import type PasswordCrypto from "./ports/outbound/password-crypto";
+import type TokenService from "./ports/outbound/token-service";
+import type UserRepository from "./ports/outbound/user-repository";
+import type Validator from "./ports/outbound/validator";
 
 import UnauthorizedError from "./errors/unauthorized";
 import ValidationError from "./errors/validation";

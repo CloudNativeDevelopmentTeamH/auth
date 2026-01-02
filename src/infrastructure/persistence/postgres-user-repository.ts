@@ -1,7 +1,7 @@
 import AuthUser from "../../entities/auth-user";
 import NewAuthUser from "../../entities/auth-user";
 import User from "../../entities/user";
-import type UserRepository from "../../usecases/ports/user-repository";
+import type UserRepository from "../../usecases/ports/outbound/user-repository";
 
 import db from "./drizzle-client";
 import usersTable from "./user-schema";

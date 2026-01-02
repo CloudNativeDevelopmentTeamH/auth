@@ -1,6 +1,6 @@
 import UnauthorizedError from "./errors/unauthorized";
-import type TokenService from "./ports/token-service";
-import type UserRepository from "./ports/user-repository";
+import type TokenService from "./ports/outbound/token-service";
+import type UserRepository from "./ports/outbound/user-repository";
 
 export default class DeleteUser {
     constructor(

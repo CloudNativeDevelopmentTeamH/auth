@@ -1,5 +1,5 @@
-import type Validator from "../../usecases/ports/validator";
-import type { ValidatorResult } from "../../usecases/ports/validator";
+import type Validator from "../../usecases/ports/outbound/validator";
+import type { ValidatorResult } from "../../usecases/ports/outbound/validator";
 
 import Ajv from "ajv";
 import type { JSONSchemaType, ValidateFunction } from "ajv";

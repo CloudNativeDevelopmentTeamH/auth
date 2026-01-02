@@ -3,9 +3,9 @@ import User from "../entities/user";
 import type { NewAuthUser } from "../entities/auth-user";
 import type RegisterUserInputDTO from "./dtos/register-user-input";
 
-import type PasswordCrypto from "./ports/password-crypto";
-import type UserRepository from "./ports/user-repository";
-import type Validator from "./ports/validator";
+import type PasswordCrypto from "./ports/outbound/password-crypto";
+import type UserRepository from "./ports/outbound/user-repository";
+import type Validator from "./ports/outbound/validator";
 
 import ValidationError from "./errors/validation";
 import ConflictError from "./errors/conflict";
