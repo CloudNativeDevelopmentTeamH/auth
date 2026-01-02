@@ -1,4 +1,4 @@
-import app from './infrastructure/api/index.js';
+import app from './infrastructure/api/app.js';
 import config from './infrastructure/utils/config';
 
 app.listen(config.port, () => {
