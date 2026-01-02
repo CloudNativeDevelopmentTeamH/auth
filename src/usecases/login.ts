@@ -1,3 +1,4 @@
+import type LoginUserUseCase from "./ports/inbound/login";
 import type LoginUserInputDTO from "./dtos/login-user-input";
 
 import type PasswordCrypto from "./ports/outbound/password-crypto";
@@ -8,7 +9,8 @@ import type Validator from "./ports/outbound/validator";
 import UnauthorizedError from "./errors/unauthorized";
 import ValidationError from "./errors/validation";
 
-export default class LoginUser {
+
+export default class LoginUser implements LoginUserUseCase {
     constructor(
         private userRepository: UserRepository,
         private validator: Validator<LoginUserInputDTO>,

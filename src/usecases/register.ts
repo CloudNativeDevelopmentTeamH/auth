@@ -1,4 +1,4 @@
-
+import type RegisterUserUseCase from "./ports/inbound/register";
 import User from "../entities/user";
 import type { NewAuthUser } from "../entities/auth-user";
 import type RegisterUserInputDTO from "./dtos/register-user-input";
@@ -10,7 +10,7 @@ import type Validator from "./ports/outbound/validator";
 import ValidationError from "./errors/validation";
 import ConflictError from "./errors/conflict";
 
-export default class RegisterUser {
+export default class RegisterUser implements RegisterUserUseCase {
     constructor(
         private userRepository: UserRepository,
         private validator: Validator<RegisterUserInputDTO>,

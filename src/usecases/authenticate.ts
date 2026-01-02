@@ -1,7 +1,8 @@
+import type AuthenticateUserUseCase from "./ports/inbound/authenticate";
 import UnauthorizedError from "./errors/unauthorized";
 import type TokenService from "./ports/outbound/token-service";
 
-export default class AuthenticateUser {
+export default class AuthenticateUser implements AuthenticateUserUseCase {
     constructor(private tokenService: TokenService) {}
 
     async execute(token?: string): Promise<number> {

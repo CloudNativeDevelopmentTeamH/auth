@@ -1,8 +1,9 @@
+import type DeleteUserUseCase from "./ports/inbound/delete";
 import UnauthorizedError from "./errors/unauthorized";
 import type TokenService from "./ports/outbound/token-service";
 import type UserRepository from "./ports/outbound/user-repository";
 
-export default class DeleteUser {
+export default class DeleteUser implements DeleteUserUseCase {
     constructor(
         private userRepository: UserRepository,
         private tokenService: TokenService
