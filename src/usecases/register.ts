@@ -1,7 +1,7 @@
 
 import User from "../entities/user";
 import type { NewAuthUser } from "../entities/auth-user";
-import type RegisterUserDto from "./dtos/register-user";
+import type RegisterUserInputDTO from "./dtos/register-user-input";
 
 import type PasswordCrypto from "./ports/password-crypto";
 import type UserRepository from "./ports/user-repository";
@@ -13,11 +13,11 @@ import ConflictError from "./errors/conflict";
 export default class RegisterUser {
     constructor(
         private userRepository: UserRepository,
-        private validator: Validator<RegisterUserDto>,
+        private validator: Validator<RegisterUserInputDTO>,
         private crypto: PasswordCrypto
     ) {}
 
-    async execute(payload: RegisterUserDto): Promise<User> {
+    async execute(payload: RegisterUserInputDTO): Promise<User> {
         const { data: validatedData, errors } = this.validator.validate(payload);
         if (errors && errors.length > 0) {
             throw new ValidationError("Validation failed: " + errors.join(", "));

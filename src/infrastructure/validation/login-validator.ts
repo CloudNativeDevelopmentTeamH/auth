@@ -1,9 +1,9 @@
 import type { JSONSchemaType } from "ajv";
-import type LoginUserDto from "../../usecases/dtos/login-user";
+import type LoginUserInputDTO from "../../usecases/dtos/login-user-input";
 
 import AjvValidator from "./ajv-validator";
 
-const loginUserSchema: JSONSchemaType<LoginUserDto> = {
+const loginUserSchema: JSONSchemaType<LoginUserInputDTO> = {
     type: "object",
     properties: {
         email: { type: "string", format: "email", minLength: 5, maxLength: 255 },
@@ -13,4 +13,4 @@ const loginUserSchema: JSONSchemaType<LoginUserDto> = {
     additionalProperties: false
 }
 
-export default new AjvValidator<LoginUserDto>(loginUserSchema);
+export default new AjvValidator<LoginUserInputDTO>(loginUserSchema);

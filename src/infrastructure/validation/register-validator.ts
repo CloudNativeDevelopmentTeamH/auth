@@ -1,9 +1,9 @@
 import type { JSONSchemaType } from "ajv"
-import type RegisterUserDto from "../../usecases/dtos/register-user"
+import type RegisterUserInputDTO from "../../usecases/dtos/register-user-input"
 
 import AjvValidator from "./ajv-validator";
 
-const registerUserSchema: JSONSchemaType<RegisterUserDto> = {
+const registerUserSchema: JSONSchemaType<RegisterUserInputDTO> = {
     type: "object",
     properties: {
         email: { type: "string", format: "email", minLength: 5, maxLength: 255 },
@@ -14,4 +14,4 @@ const registerUserSchema: JSONSchemaType<RegisterUserDto> = {
     additionalProperties: false,
 }
 
-export default new AjvValidator<RegisterUserDto>(registerUserSchema);
+export default new AjvValidator<RegisterUserInputDTO>(registerUserSchema);
