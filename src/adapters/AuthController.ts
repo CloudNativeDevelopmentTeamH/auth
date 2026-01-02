@@ -28,7 +28,6 @@ export default class AuthController {
       return this.authPresenter.presentRegister(user);
     }
     catch (error) {
-      console.log(error);
       return this.authPresenter.presentError(error);
     }
   }
