@@ -5,6 +5,8 @@ import healthRouter from './routes/health';
 import middleware from '../utils/middleware';
 
 const app = express();
+
+app.use(middleware.logger);
 app.use(express.json());
 app.use(cookieParser());
 
