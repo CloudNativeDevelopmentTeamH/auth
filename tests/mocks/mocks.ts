@@ -45,7 +45,7 @@ class MockUserRepository implements UserRepository {
     return Promise.resolve(testUserStored);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   deleteById(id: number): Promise<boolean> {
     return Promise.resolve(true);
   }

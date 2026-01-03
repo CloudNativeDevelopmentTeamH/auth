@@ -8,6 +8,7 @@
     "test": "vitest",
     "dev": "nodemon --exec tsx ./src/server.ts",
     "lint": "eslint . --ext .ts",
+
     "db_studio": "npx drizzle-kit studio"
   },
   "author": "",

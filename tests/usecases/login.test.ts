@@ -1,17 +1,25 @@
-import { it, expect } from "vitest";
+import { it, expect, beforeEach } from "vitest";
 import { testUserInput, testUserStored, MockUserRepository, MockValidator, MockPasswordCrypto, MockTokenService } from "../mocks/mocks";
 import type LoginUserInputDTO from "../../src/usecases/dtos/login-user-input";
 import LoginUser from "../../src/usecases/login";
 import type Validator from "../../src/usecases/ports/outbound/validator";
 import type { ValidatorResult } from "../../src/usecases/ports/outbound/validator";
 
-it("returns token when credentials are valid", async () => {
-  const userRepository = new MockUserRepository();
-  const validator = new MockValidator<LoginUserInputDTO>();
-  const crypto = new MockPasswordCrypto();
-  const tokenService = new MockTokenService();
-  const loginUser = new LoginUser(userRepository, validator, crypto, tokenService);
+let userRepository: MockUserRepository;
+let validator: MockValidator<LoginUserInputDTO>;
+let crypto: MockPasswordCrypto;
+let tokenService: MockTokenService;
+let loginUser: LoginUser;
 
+beforeEach(() => {
+  userRepository = new MockUserRepository();
+  validator = new MockValidator<LoginUserInputDTO>();
+  crypto = new MockPasswordCrypto();
+  tokenService = new MockTokenService();
+  loginUser = new LoginUser(userRepository, validator, crypto, tokenService);
+});
+
+it("returns token when credentials are valid", async () => {
   const payload: LoginUserInputDTO = {
     email: testUserInput.email,
     password: testUserInput.password
@@ -23,12 +31,6 @@ it("returns token when credentials are valid", async () => {
 });
 
 it("throws UnauthorizedError when credentials are invalid", async () => {
-  const userRepository = new MockUserRepository();
-  const validator = new MockValidator<LoginUserInputDTO>();
-  const crypto = new MockPasswordCrypto();
-  const tokenService = new MockTokenService();
-  const loginUser = new LoginUser(userRepository, validator, crypto, tokenService);
-
   const payload: LoginUserInputDTO = {
     email: testUserInput.email,
     password: "wrong_password"
@@ -46,14 +48,13 @@ it("throws ValidationError when input is invalid", async () => {
       };
     }
   }
-  const userRepository = new MockUserRepository();
-  const validator = new MockValidatorWithErrors<LoginUserInputDTO>();
-  const crypto = new MockPasswordCrypto();
-  const tokenService = new MockTokenService();
-  const loginUser = new LoginUser(userRepository, validator, crypto, tokenService);
+  
+  const validatorWithErrors = new MockValidatorWithErrors<LoginUserInputDTO>();
+  const loginUserWithInvalidInput = new LoginUser(userRepository, validatorWithErrors, crypto, tokenService);
+  
   const payload: LoginUserInputDTO = {
     email: "invalid_email",
     password: testUserInput.password
   };
-  await expect(loginUser.execute(payload)).rejects.toThrow("Validation failed: Invalid email format");
+  await expect(loginUserWithInvalidInput.execute(payload)).rejects.toThrow("Validation failed: Invalid email format");
 });
