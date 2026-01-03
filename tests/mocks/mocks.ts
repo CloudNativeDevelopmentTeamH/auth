@@ -8,45 +8,42 @@ import type Validator from "../../src/usecases/ports/outbound/validator";
 import type { ValidatorResult } from "../../src/usecases/ports/outbound/validator";
 import type TokenService from "../../src/usecases/ports/outbound/token-service";
 
-const testUserInput = {
-  email: "test@example.com",
-  password: "password"
-};
-
-const testUserStored: AuthUser = {
-  id: 1,
-  name: testUserInput.email,
-  email: testUserInput.email,
-  password: "hashed_password"
-};
-
+const testUsers: AuthUser[] = [
+  {
+    id: 1,
+    name: "test@example.com",
+    email: "test@example.com",
+    password: "hashed_password"
+  }
+];
 class MockUserRepository implements UserRepository {
   save(user: NewAuthUser): Promise<User> {
-    const newUser: User = {
-      id: 1,
+    const newUser: AuthUser = {
+      id: testUsers.length + 1,
       ...user,
     }
+    testUsers.push(newUser);
+
     return Promise.resolve(newUser);
   }
 
   getById(id: number): Promise<User | null> {
-    const user: User = {
-      id,
-      name: testUserStored.name,
-      email: testUserStored.email
-    }
+    const user = testUsers.find(u => u.id === id) || null;
     return Promise.resolve(user);
   }
 
   findByEmail(email: string): Promise<AuthUser | null> {
-    if (email !== testUserStored.email) {
-      return Promise.resolve(null);
-    }
-    return Promise.resolve(testUserStored);
+    const user = testUsers.find(u => u.email === email) || null;
+    return Promise.resolve(user);
   }
-
    
   deleteById(id: number): Promise<boolean> {
+    const index = testUsers.findIndex(u => u.id === id);
+    if (index === -1) {
+      return Promise.resolve(false);
+    }
+    testUsers.splice(index, 1);
+
     return Promise.resolve(true);
   }
 }
@@ -86,8 +83,6 @@ class MockTokenService implements TokenService {
 }
 
 export {
-  testUserInput,
-  testUserStored,
   MockUserRepository,
   MockValidator,
   MockPasswordCrypto,
