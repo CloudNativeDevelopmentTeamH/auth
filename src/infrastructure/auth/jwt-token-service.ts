@@ -18,14 +18,20 @@ export default class JwtTokenService implements TokenService {
   }
 
   verifyToken(token: string): number | null {
-    const decoded = jwt.verify(token, this.privateKey) as { id: number };
-    const id = decoded.id;
+    try {
+      const decoded = jwt.verify(token, this.privateKey) as { id: number };
+      const id = decoded.id;
 
-    if (!id) {
+      if (!id) {
+        return null;
+      }
+
+      return id;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    catch (error) {
       return null;
     }
-
-    return id;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
