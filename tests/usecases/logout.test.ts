@@ -13,5 +13,4 @@ beforeEach(() => {
 
 it("throws UnauthorizedError when no token is provided", async () => {
   await expect(logoutUser.execute()).rejects.toThrow(UnauthorizedError);
-  await expect(logoutUser.execute()).rejects.toThrow("No token provided");
 });

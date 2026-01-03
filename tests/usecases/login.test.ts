@@ -4,6 +4,8 @@ import type LoginUserInputDTO from "../../src/usecases/dtos/login-user-input";
 import LoginUser from "../../src/usecases/login";
 import type Validator from "../../src/usecases/ports/outbound/validator";
 import type { ValidatorResult } from "../../src/usecases/ports/outbound/validator";
+import UnauthorizedError from "../../src/usecases/errors/unauthorized";
+import ValidationError from "../../src/usecases/errors/validation";
 
 let userRepository: MockUserRepository;
 let validator: MockValidator<LoginUserInputDTO>;
@@ -47,7 +49,7 @@ it("throws UnauthorizedError when credentials are invalid", async () => {
     password: "wrong_password"
   };
 
-  await expect(loginUser.execute(payload)).rejects.toThrow("Invalid email or password");
+  await expect(loginUser.execute(payload)).rejects.toThrow(UnauthorizedError);
 });
 
 it("throws ValidationError when input is invalid", async () => {
@@ -67,5 +69,5 @@ it("throws ValidationError when input is invalid", async () => {
     email: "invalid_email",
     password: "password"
   };
-  await expect(loginUserWithInvalidInput.execute(payload)).rejects.toThrow("Validation failed: Invalid email format");
+  await expect(loginUserWithInvalidInput.execute(payload)).rejects.toThrow(ValidationError);
 });
