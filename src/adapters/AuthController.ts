@@ -22,69 +22,39 @@ export default class AuthController {
   ) {}
 
   async register(req: HttpRequest) {
-    try {
-      const { email, name, password } = req.body as RegisterUserInputDTO;
-      const user = await this.registerUser.execute({ email, name, password });
-      return this.authPresenter.presentRegister(user);
-    }
-    catch (error) {
-      return this.authPresenter.presentError(error);
-    }
+    const { email, name, password } = req.body as RegisterUserInputDTO;
+    const user = await this.registerUser.execute({ email, name, password });
+    return this.authPresenter.presentRegister(user);
   }
 
   async login(req: HttpRequest) {
-    try {
-      const { email, password } = req.body as LoginUserInputDTO;
-      const token = await this.loginUser.execute({ email, password });
-      return this.authPresenter.presentLogin(token);
-    }
-    catch (error) {
-      return this.authPresenter.presentError(error);
-    }
+    const { email, password } = req.body as LoginUserInputDTO;
+    const token = await this.loginUser.execute({ email, password });
+    return this.authPresenter.presentLogin(token);
   }
 
   async profile(req: HttpRequest) {
-    try {
-      const token = req.token;
-      const user = await this.fetchUserProfile.execute(token);
-      return this.authPresenter.presentProfile(user);
-    }
-    catch (error) {
-      return this.authPresenter.presentError(error);
-    }
+    const token = req.token;
+    const user = await this.fetchUserProfile.execute(token);
+    return this.authPresenter.presentProfile(user);
   }
 
   async authenticate(req: HttpRequest) {
-    try {
-      const token = req.token;
-      const userId = await this.authenticateUser.execute(token);
-      return this.authPresenter.presentAuthenticate(userId);
-    }
-    catch (error) {
-      return this.authPresenter.presentError(error);
-    }
+    const token = req.token;
+    const userId = await this.authenticateUser.execute(token);
+    return this.authPresenter.presentAuthenticate(userId);
   }
 
   async logout(req: HttpRequest) {
-    try {
-      const token = req.token;
-      await this.logoutUser.execute(token);
-      return this.authPresenter.presentLogout();
-    }
-    catch (error) {
-      return this.authPresenter.presentError(error);
-    }
+    const token = req.token;
+    await this.logoutUser.execute(token);
+    return this.authPresenter.presentLogout();
   }
 
   async delete(req: HttpRequest) {
-    try {
-      const token = req.token;
-      await this.deleteUser.execute(token);
-      await this.logoutUser.execute(token);
-      return this.authPresenter.presentDelete();
-    }
-    catch (error) {
-      return this.authPresenter.presentError(error);
-    }
+    const token = req.token;
+    await this.deleteUser.execute(token);
+    await this.logoutUser.execute(token);
+    return this.authPresenter.presentDelete();
   }
 }
