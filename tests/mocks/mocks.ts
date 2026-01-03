@@ -59,15 +59,6 @@ class MockValidator<T> implements Validator<T> {
   }
 }
 
-class MockValidatorWithErrors<T> implements Validator<T> {
-  validate(data: T): ValidatorResult<T> {
-    return {
-      data,
-      errors: ["Validation error"]
-    };
-  }
-}
-
 class MockPasswordCrypto implements PasswordCrypto {
   hash(password: string): Promise<string> {
     return Promise.resolve("hashed_" + password);
@@ -99,7 +90,6 @@ export {
   testUserStored,
   MockUserRepository,
   MockValidator,
-  MockValidatorWithErrors,
   MockPasswordCrypto,
   MockTokenService
 }
