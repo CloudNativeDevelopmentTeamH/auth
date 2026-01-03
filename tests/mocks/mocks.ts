@@ -63,17 +63,22 @@ class MockPasswordCrypto implements PasswordCrypto {
 }
 
 class MockTokenService implements TokenService {
+  private invalidatedTokens: Set<string> = new Set();
+
   issueToken(user: AuthUser): string {
     return "mocked_token_for_user_" + user.id;
   }
 
   verifyToken(token: string): number | null {
+    if (this.invalidatedTokens.has(token)) {
+      return null;
+    }
     const match = token.match(/mocked_token_for_user_(\d+)/);
     return match ? parseInt(match[1]!, 10) : null;
   }
 
   invalidateToken(token: string): void {
-    // No-op for mock
+    this.invalidatedTokens.add(token);
   }
 }
 
