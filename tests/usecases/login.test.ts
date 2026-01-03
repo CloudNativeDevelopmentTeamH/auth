@@ -4,7 +4,6 @@ import type LoginUserInputDTO from "../../src/usecases/dtos/login-user-input";
 import LoginUser from "../../src/usecases/login";
 import type Validator from "../../src/usecases/ports/outbound/validator";
 import type { ValidatorResult } from "../../src/usecases/ports/outbound/validator";
-import type User from "../../src/entities/user";
 
 let userRepository: MockUserRepository;
 let validator: MockValidator<LoginUserInputDTO>;
