@@ -4,21 +4,23 @@
     
     // Modules    
     // https://aka.ms/tsconfig/module
+    // bundler
     "module": "esnext",
     "moduleResolution": "bundler",
     "esModuleInterop": true,
     "customConditions": ["module"],
 
-    "moduleDetection": "force",
+    // recommended for bundler
+    "noEmit": true,
     "allowImportingTsExtensions": true,
     "allowArbitraryExtensions": true,
     "verbatimModuleSyntax": true,
 
-    // Emit
-    "noEmit": true,
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    // base options
+    "skipLibCheck": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
 
     // Interop Constraints
     "isolatedModules": true,
@@ -32,10 +34,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    // "noPropertyAccessFromIndexSignature": true,
     "noUncheckedSideEffectImports": true,
-
-    // Completeness
-    "skipLibCheck": true
   },
 }
