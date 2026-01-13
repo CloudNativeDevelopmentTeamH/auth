@@ -1,9 +1,9 @@
-import PinoHttp from 'pino-http';
+import { pinoHttp } from 'pino-http';
 import type { ErrorRequestHandler, RequestHandler } from 'express';
-import AppError from '../../usecases/errors/app';
+import AppError from '../../usecases/errors/app.ts';
 import { randomUUID } from 'crypto';
 
-const logger = PinoHttp({
+const logger = pinoHttp({
   genReqId(req, res) {
     const existing = req.headers["x-request-id"];
     if (existing) return existing;

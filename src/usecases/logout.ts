@@ -1,6 +1,6 @@
-import type LogoutUserUseCase from "./ports/inbound/logout";
-import UnauthorizedError from "./errors/unauthorized";
-import type TokenService from "./ports/outbound/token-service";
+import type LogoutUserUseCase from "./ports/inbound/logout.ts";
+import UnauthorizedError from "./errors/unauthorized.ts";
+import type TokenService from "./ports/outbound/token-service.ts";
 
 export default class LogoutUser implements LogoutUserUseCase {
   constructor(private tokenService: TokenService) {}

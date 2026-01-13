@@ -1,7 +1,7 @@
 import type { JSONSchemaType } from "ajv"
-import type RegisterUserInputDTO from "../../usecases/dtos/register-user-input"
+import type RegisterUserInputDTO from "../../usecases/dtos/register-user-input.ts"
 
-import AjvValidator from "./ajv-validator";
+import AjvValidator from "./ajv-validator.ts";
 
 const registerUserSchema: JSONSchemaType<RegisterUserInputDTO> = {
   type: "object",

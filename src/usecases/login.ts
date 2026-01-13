@@ -1,13 +1,13 @@
-import type LoginUserUseCase from "./ports/inbound/login";
-import type LoginUserInputDTO from "./dtos/login-user-input";
+import type LoginUserUseCase from "./ports/inbound/login.ts";
+import type LoginUserInputDTO from "./dtos/login-user-input.ts";
 
-import type PasswordCrypto from "./ports/outbound/password-crypto";
-import type TokenService from "./ports/outbound/token-service";
-import type UserRepository from "./ports/outbound/user-repository";
-import type Validator from "./ports/outbound/validator";
+import type PasswordCrypto from "./ports/outbound/password-crypto.ts";
+import type TokenService from "./ports/outbound/token-service.ts";
+import type UserRepository from "./ports/outbound/user-repository.ts";
+import type Validator from "./ports/outbound/validator.ts";
 
-import UnauthorizedError from "./errors/unauthorized";
-import ValidationError from "./errors/validation";
+import UnauthorizedError from "./errors/unauthorized.ts";
+import ValidationError from "./errors/validation.ts";
 
 export default class LoginUser implements LoginUserUseCase {
   constructor(

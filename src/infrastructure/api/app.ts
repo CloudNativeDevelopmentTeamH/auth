@@ -1,8 +1,8 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import authRouter from './routes/auth';
-import healthRouter from './routes/health';
-import middleware from '../utils/middleware';
+import authRouter from './routes/auth.ts';
+import healthRouter from './routes/health.ts';
+import middleware from '../utils/middleware.ts';
 
 const app = express();
 

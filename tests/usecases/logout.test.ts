@@ -1,7 +1,7 @@
 import { beforeEach, expect, it } from "vitest";
-import LogoutUser from "../../src/usecases/logout";
-import { MockTokenService } from "../mocks/mocks";
-import UnauthorizedError from "../../src/usecases/errors/unauthorized";
+import LogoutUser from "../../src/usecases/logout.ts";
+import { MockTokenService } from "../mocks/mocks.ts";
+import UnauthorizedError from "../../src/usecases/errors/unauthorized.ts";
 
 let tokenService: MockTokenService;
 let logoutUser: LogoutUser;

@@ -1,6 +1,6 @@
 import { beforeEach, expect, it } from "vitest";
-import DeleteUser from "../../src/usecases/delete";
-import { MockPasswordCrypto, MockTokenService, MockUserRepository } from "../mocks/mocks";
+import DeleteUser from "../../src/usecases/delete.ts";
+import { MockPasswordCrypto, MockTokenService, MockUserRepository } from "../mocks/mocks.ts";
 
 let userRepository: MockUserRepository;
 let crypto: MockPasswordCrypto;

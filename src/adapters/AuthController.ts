@@ -1,14 +1,14 @@
-import type HttpRequest from "./dtos/HttpRequest";
+import type HttpRequest from "./dtos/HttpRequest.ts";
 
-import type LoginUser from "../usecases/login";
-import type RegisterUser from "../usecases/register";
-import type FetchUserProfile from "../usecases/profile";
-import type LogoutUser from "../usecases/logout";
-import type AuthenticateUser from "../usecases/authenticate";
-import type DeleteUser from "../usecases/delete";
-import type RegisterUserInputDTO from "../usecases/dtos/register-user-input";
-import type LoginUserInputDTO from "../usecases/dtos/login-user-input";
-import type AuthPresenter from "./presenter/AuthPresenter";
+import type LoginUser from "../usecases/login.ts";
+import type RegisterUser from "../usecases/register.ts";
+import type FetchUserProfile from "../usecases/profile.ts";
+import type LogoutUser from "../usecases/logout.ts";
+import type AuthenticateUser from "../usecases/authenticate.ts";
+import type DeleteUser from "../usecases/delete.ts";
+import type RegisterUserInputDTO from "../usecases/dtos/register-user-input.ts";
+import type LoginUserInputDTO from "../usecases/dtos/login-user-input.ts";
+import type AuthPresenter from "./presenter/AuthPresenter.ts";
 
 export default class AuthController {
   constructor(

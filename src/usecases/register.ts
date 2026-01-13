@@ -1,14 +1,14 @@
-import type RegisterUserUseCase from "./ports/inbound/register";
-import User from "../entities/user";
-import type { NewAuthUser } from "../entities/auth-user";
-import type RegisterUserInputDTO from "./dtos/register-user-input";
+import type RegisterUserUseCase from "./ports/inbound/register.ts";
+import User from "../entities/user.ts";
+import type { NewAuthUser } from "../entities/auth-user.ts";
+import type RegisterUserInputDTO from "./dtos/register-user-input.ts";
 
-import type PasswordCrypto from "./ports/outbound/password-crypto";
-import type UserRepository from "./ports/outbound/user-repository";
-import type Validator from "./ports/outbound/validator";
+import type PasswordCrypto from "./ports/outbound/password-crypto.ts";
+import type UserRepository from "./ports/outbound/user-repository.ts";
+import type Validator from "./ports/outbound/validator.ts";
 
-import ValidationError from "./errors/validation";
-import ConflictError from "./errors/conflict";
+import ValidationError from "./errors/validation.ts";
+import ConflictError from "./errors/conflict.ts";
 
 export default class RegisterUser implements RegisterUserUseCase {
   constructor(

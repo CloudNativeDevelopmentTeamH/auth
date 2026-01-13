@@ -1,8 +1,8 @@
-import type TokenService from "../../usecases/ports/outbound/token-service";
-import type User from "../../entities/user";
+import type TokenService from "../../usecases/ports/outbound/token-service.ts";
+import type User from "../../entities/user.ts";
 
 import jwt from "jsonwebtoken";
-import config from "../utils/config";
+import config from "../utils/config.ts";
 
 export default class JwtTokenService implements TokenService {
   private privateKey = config.jwtSecret;

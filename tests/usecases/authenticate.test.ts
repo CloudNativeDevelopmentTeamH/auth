@@ -1,7 +1,7 @@
 import { beforeEach, expect, it } from "vitest";
-import AuthenticateUser from "../../src/usecases/authenticate";
-import { MockPasswordCrypto, MockTokenService, MockUserRepository } from "../mocks/mocks";
-import UnauthorizedError from "../../src/usecases/errors/unauthorized";
+import AuthenticateUser from "../../src/usecases/authenticate.ts";
+import { MockPasswordCrypto, MockTokenService, MockUserRepository } from "../mocks/mocks.ts";
+import UnauthorizedError from "../../src/usecases/errors/unauthorized.ts";
 
 let userRepository: MockUserRepository;
 let tokenService: MockTokenService;

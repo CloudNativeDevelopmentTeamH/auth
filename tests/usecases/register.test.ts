@@ -1,11 +1,11 @@
 import { beforeEach, expect, it } from "vitest";
-import RegisterUser from "../../src/usecases/register";
-import { MockUserRepository, MockValidator, MockPasswordCrypto } from "../mocks/mocks";
-import type RegisterUserInputDTO from "../../src/usecases/dtos/register-user-input";
-import type Validator from "../../src/usecases/ports/outbound/validator";
-import type { ValidatorResult } from "../../src/usecases/ports/outbound/validator";
-import ValidationError from "../../src/usecases/errors/validation";
-import ConflictError from "../../src/usecases/errors/conflict";
+import RegisterUser from "../../src/usecases/register.ts";
+import { MockUserRepository, MockValidator, MockPasswordCrypto } from "../mocks/mocks.ts";
+import type RegisterUserInputDTO from "../../src/usecases/dtos/register-user-input.ts";
+import type Validator from "../../src/usecases/ports/outbound/validator.ts";
+import type { ValidatorResult } from "../../src/usecases/ports/outbound/validator.ts";
+import ValidationError from "../../src/usecases/errors/validation.ts";
+import ConflictError from "../../src/usecases/errors/conflict.ts";
 
 let userRepository: MockUserRepository;
 let validator: MockValidator<RegisterUserInputDTO>;

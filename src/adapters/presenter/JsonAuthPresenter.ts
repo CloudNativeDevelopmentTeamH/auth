@@ -1,6 +1,6 @@
-import type User from "../../entities/user";
-import type HTTPResponse from "../dtos/HttpResponse";
-import type AuthPresenter from "./AuthPresenter";
+import type User from "../../entities/user.ts";
+import type HTTPResponse from "../dtos/HttpResponse.ts";
+import type AuthPresenter from "./AuthPresenter.ts";
 
 export default class JsonAuthPresenter implements AuthPresenter {
   presentRegister(user: User): HTTPResponse<{ user: User }> {

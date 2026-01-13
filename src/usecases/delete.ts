@@ -1,7 +1,7 @@
-import type DeleteUserUseCase from "./ports/inbound/delete";
-import UnauthorizedError from "./errors/unauthorized";
-import type TokenService from "./ports/outbound/token-service";
-import type UserRepository from "./ports/outbound/user-repository";
+import type DeleteUserUseCase from "./ports/inbound/delete.ts";
+import UnauthorizedError from "./errors/unauthorized.ts";
+import type TokenService from "./ports/outbound/token-service.ts";
+import type UserRepository from "./ports/outbound/user-repository.ts";
 
 export default class DeleteUser implements DeleteUserUseCase {
   constructor(

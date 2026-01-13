@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import request from "supertest";
-import app from "../../src/infrastructure/api/app";
+import app from "../../src/infrastructure/api/app.ts";
 
 describe("Auth API Integration Tests", () => {
   let authToken: string;

@@ -1,5 +1,5 @@
 import express from "express";
-import controller from "../auth.container";
+import controller from "../auth.container.ts";
 
 const COOKIE_NAME = "auth_token";
 const COOKIE_OPTIONS = {

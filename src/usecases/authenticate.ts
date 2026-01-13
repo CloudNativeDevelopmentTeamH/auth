@@ -1,6 +1,6 @@
-import type AuthenticateUserUseCase from "./ports/inbound/authenticate";
-import UnauthorizedError from "./errors/unauthorized";
-import type TokenService from "./ports/outbound/token-service";
+import type AuthenticateUserUseCase from "./ports/inbound/authenticate.ts";
+import UnauthorizedError from "./errors/unauthorized.ts";
+import type TokenService from "./ports/outbound/token-service.ts";
 
 export default class AuthenticateUser implements AuthenticateUserUseCase {
   constructor(private tokenService: TokenService) {}

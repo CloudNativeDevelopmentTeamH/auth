@@ -1,5 +1,5 @@
-import type User from "../../entities/user";
-import type HTTPResponse from "../dtos/HttpResponse";
+import type User from "../../entities/user.ts";
+import type HTTPResponse from "../dtos/HttpResponse.ts";
 
 export default interface AuthPresenter {
   presentRegister(user: User): HTTPResponse<{ user: User }>;

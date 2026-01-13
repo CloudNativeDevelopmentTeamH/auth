@@ -1,10 +1,10 @@
-import AuthUser from "../../entities/auth-user";
-import NewAuthUser from "../../entities/auth-user";
-import User from "../../entities/user";
-import type UserRepository from "../../usecases/ports/outbound/user-repository";
+import AuthUser from "../../entities/auth-user.ts";
+import NewAuthUser from "../../entities/auth-user.ts";
+import User from "../../entities/user.ts";
+import type UserRepository from "../../usecases/ports/outbound/user-repository.ts";
 
-import db from "./drizzle-client";
-import usersTable from "./user-schema";
+import db from "./drizzle-client.ts";
+import usersTable from "./user-schema.ts";
 import { eq } from "drizzle-orm";
 
 export default class PostgresUserRepository implements UserRepository {

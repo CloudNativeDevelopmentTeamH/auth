@@ -1,4 +1,4 @@
-import type User from "../../../entities/user";
+import type User from "../../../entities/user.ts";
 
 export default interface TokenService {
   issueToken(payload: User): string;

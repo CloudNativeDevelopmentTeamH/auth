@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type AuthUser from "../../src/entities/auth-user";
-import type { NewAuthUser } from "../../src/entities/auth-user";
-import type User from "../../src/entities/user";
-import type PasswordCrypto from "../../src/usecases/ports/outbound/password-crypto";
-import type UserRepository from "../../src/usecases/ports/outbound/user-repository";
-import type Validator from "../../src/usecases/ports/outbound/validator";
-import type { ValidatorResult } from "../../src/usecases/ports/outbound/validator";
-import type TokenService from "../../src/usecases/ports/outbound/token-service";
+import type AuthUser from "../../src/entities/auth-user.ts";
+import type { NewAuthUser } from "../../src/entities/auth-user.ts";
+import type User from "../../src/entities/user.ts";
+import type PasswordCrypto from "../../src/usecases/ports/outbound/password-crypto.ts";
+import type UserRepository from "../../src/usecases/ports/outbound/user-repository.ts";
+import type Validator from "../../src/usecases/ports/outbound/validator.ts";
+import type { ValidatorResult } from "../../src/usecases/ports/outbound/validator.ts";
+import type TokenService from "../../src/usecases/ports/outbound/token-service.ts";
 
 class MockUserRepository implements UserRepository {
   private users: AuthUser[] = [];

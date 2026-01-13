@@ -1,4 +1,4 @@
-import type UseCase from "./use-case";
+import type UseCase from "./use-case.ts";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export default interface DeleteUserUseCase extends UseCase<string | undefined, void> {}

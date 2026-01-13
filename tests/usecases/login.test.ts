@@ -1,11 +1,11 @@
 import { it, expect, beforeEach } from "vitest";
-import { MockUserRepository, MockValidator, MockPasswordCrypto, MockTokenService } from "../mocks/mocks";
-import type LoginUserInputDTO from "../../src/usecases/dtos/login-user-input";
-import LoginUser from "../../src/usecases/login";
-import type Validator from "../../src/usecases/ports/outbound/validator";
-import type { ValidatorResult } from "../../src/usecases/ports/outbound/validator";
-import UnauthorizedError from "../../src/usecases/errors/unauthorized";
-import ValidationError from "../../src/usecases/errors/validation";
+import { MockUserRepository, MockValidator, MockPasswordCrypto, MockTokenService } from "../mocks/mocks.ts";
+import type LoginUserInputDTO from "../../src/usecases/dtos/login-user-input.ts";
+import LoginUser from "../../src/usecases/login.ts";
+import type Validator from "../../src/usecases/ports/outbound/validator.ts";
+import type { ValidatorResult } from "../../src/usecases/ports/outbound/validator.ts";
+import UnauthorizedError from "../../src/usecases/errors/unauthorized.ts";
+import ValidationError from "../../src/usecases/errors/validation.ts";
 
 let userRepository: MockUserRepository;
 let validator: MockValidator<LoginUserInputDTO>;

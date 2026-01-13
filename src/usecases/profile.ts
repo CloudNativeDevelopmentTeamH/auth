@@ -1,9 +1,9 @@
-import type FetchUserProfileUseCase from "./ports/inbound/profile";
-import type User from "../entities/user";
-import UnauthorizedError from "./errors/unauthorized";
-import type TokenService from "./ports/outbound/token-service";
+import type FetchUserProfileUseCase from "./ports/inbound/profile.ts";
+import type User from "../entities/user.ts";
+import UnauthorizedError from "./errors/unauthorized.ts";
+import type TokenService from "./ports/outbound/token-service.ts";
 
-import type UserRepository from "./ports/outbound/user-repository";
+import type UserRepository from "./ports/outbound/user-repository.ts";
 
 export default class FetchUserProfile implements FetchUserProfileUseCase {
   constructor(

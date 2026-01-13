@@ -1,4 +1,4 @@
-import AppError from "./app";
+import AppError from "./app.ts";
 
 export default class ConflictError extends AppError {
   readonly code = "CONFLICT_ERROR";

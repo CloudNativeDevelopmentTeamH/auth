@@ -1,4 +1,4 @@
-import AppError from "./app";
+import AppError from "./app.ts";
 
 export default class ValidationError extends AppError {
   readonly code = "VALIDATION_ERROR";

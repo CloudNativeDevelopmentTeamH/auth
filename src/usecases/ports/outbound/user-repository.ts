@@ -1,6 +1,6 @@
-import type { NewAuthUser } from "../../../entities/auth-user";
-import type AuthUser from "../../../entities/auth-user";
-import type User from "../../../entities/user";
+import type { NewAuthUser } from "../../../entities/auth-user.ts";
+import type AuthUser from "../../../entities/auth-user.ts";
+import type User from "../../../entities/user.ts";
 
 export default interface UserRepository {
     save(user: NewAuthUser): Promise<User>;

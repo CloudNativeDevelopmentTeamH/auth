@@ -1,7 +1,7 @@
-import type PasswordCrypto from "../../usecases/ports/outbound/password-crypto";
+import type PasswordCrypto from "../../usecases/ports/outbound/password-crypto.ts";
 
 import * as argon2 from "argon2";
-import config from "../utils/config";
+import config from "../utils/config.ts";
 
 export default class ArgonPasswordCrypto implements PasswordCrypto {
   private secret(): Buffer {

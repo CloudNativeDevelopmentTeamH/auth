@@ -1,4 +1,4 @@
-import AppError from "./app";
+import AppError from "./app.ts";
 
 export default class UnauthorizedError extends AppError {
   readonly code = "UNAUTHORIZED";
