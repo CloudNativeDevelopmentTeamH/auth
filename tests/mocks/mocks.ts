@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type AuthUser from "../../src/entities/auth-user.ts";
 import type { NewAuthUser } from "../../src/entities/auth-user.ts";
 import type User from "../../src/entities/user.ts";

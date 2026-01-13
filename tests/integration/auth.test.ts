@@ -20,7 +20,7 @@ describe("Auth API Integration Tests", () => {
     // Cleanup: Try to delete the test user if it exists
     try {
       const loginResponse = await request(app)
-        .get("/auth/login")
+        .post("/auth/login")
         .send({
           email: testUser.email,
           password: testUser.password
@@ -123,7 +123,7 @@ describe("Auth API Integration Tests", () => {
 
     it("should login with valid credentials", async () => {
       const response = await request(app)
-        .get("/auth/login")
+        .post("/auth/login")
         .send({
           email: testUser.email,
           password: testUser.password
@@ -137,7 +137,7 @@ describe("Auth API Integration Tests", () => {
 
     it("should return 401 for invalid credentials", async () => {
       const response = await request(app)
-        .get("/auth/login")
+        .post("/auth/login")
         .send({
           email: testUser.email,
           password: "wrongpassword"
@@ -149,7 +149,7 @@ describe("Auth API Integration Tests", () => {
 
     it("should return 401 for non-existent user", async () => {
       const response = await request(app)
-        .get("/auth/login")
+        .post("/auth/login")
         .send({
           email: "nonexistent@test.com",
           password: "password123"
@@ -168,7 +168,7 @@ describe("Auth API Integration Tests", () => {
         .send(testUser);
 
       const loginResponse = await request(app)
-        .get("/auth/login")
+        .post("/auth/login")
         .send({
           email: testUser.email,
           password: testUser.password
@@ -217,7 +217,7 @@ describe("Auth API Integration Tests", () => {
         .send(testUser);
 
       const loginResponse = await request(app)
-        .get("/auth/login")
+        .post("/auth/login")
         .send({
           email: testUser.email,
           password: testUser.password
@@ -263,7 +263,7 @@ describe("Auth API Integration Tests", () => {
         .send(testUser);
 
       const loginResponse = await request(app)
-        .get("/auth/login")
+        .post("/auth/login")
         .send({
           email: testUser.email,
           password: testUser.password
@@ -300,7 +300,7 @@ describe("Auth API Integration Tests", () => {
         .send(testUser);
 
       const loginResponse = await request(app)
-        .get("/auth/login")
+        .post("/auth/login")
         .send({
           email: testUser.email,
           password: testUser.password
@@ -320,7 +320,7 @@ describe("Auth API Integration Tests", () => {
 
       // Verify user is deleted by trying to login
       await request(app)
-        .get("/auth/login")
+        .post("/auth/login")
         .send({
           email: testUser.email,
           password: testUser.password

@@ -7,10 +7,11 @@
   "scripts": {
     "test": "vitest",
     "dev": "nodemon --exec tsx ./src/server.ts",
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "start": "node ./dist/server.js",
     "lint": "eslint . --ext .ts",
-    "db_studio": "npx drizzle-kit studio"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "db:studio": "npx drizzle-kit studio"
   },
   "author": "",
   "license": "ISC",

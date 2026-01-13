@@ -8,7 +8,6 @@ RUN npm ci
 
 # Copy source code & build the application
 COPY tsconfig.json ./
-COPY drizzle.config.ts ./
 COPY src ./src
 RUN npm run build
 

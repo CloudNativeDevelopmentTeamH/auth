@@ -140,7 +140,8 @@ Already configured via `.env`.
 - `npm run dev` - Start development server with hot reload
 - `npm test` - Run tests in watch mode
 - `npm run lint` - Run ESLint
-- `npm run db_studio` - Open Drizzle Studio for database management
+- `npm run lint` - Apply ESLint suggested fixes
+- `npm run db:studio` - Open Drizzle Studio for database management
 
 ### Running Tests
 
@@ -159,7 +160,19 @@ npm test -- authenticate.test.ts
 
 View and manage your database using Drizzle Studio:
 ```bash
-npm run db_studio
+npm run db:studio
+```
+
+### Database Migration
+
+Generate migrations:
+```bash
+npx drizzle-kit generate
+```
+
+Apply migrations:
+```bash
+npx drizzle-kit migrate
 ```
 
 ## Security Features
