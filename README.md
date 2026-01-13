@@ -63,19 +63,14 @@ src/
 - Docker and Docker Compose
 - PostgreSQL (or use Docker Compose)
 
-### Installation
+### Development Mode (with hot reload)
 
-1. Clone the repository
-```bash
-cd auth
-```
-
-2. Install dependencies
+1. Install dependencies
 ```bash
 npm install
 ```
 
-3. Set up environment variables
+2. Set up environment variables
 Create a `.env` file in the root directory:
 ```env
 PORT=3000
@@ -87,23 +82,56 @@ DB_NAME=auth_db
 JWT_SECRET=your_jwt_secret_key
 PEPPER=your_password_pepper
 ```
+This `.env` configures the node server & docker-compose simultaneously to have matching configuration.
 
-4. Start the PostgreSQL database
+3. Start the PostgreSQL database
 ```bash
-docker compose up -d
+docker compose up -d auth_database
 ```
 
-5. Run database migrations
+4. Run database migrations
 ```bash
 npx drizzle-kit push
 ```
 
-6. Start the development server
+5. Start the development server
 ```bash
 npm run dev
 ```
 
 The service will be available at `http://localhost:3000`
+
+### Run Locally
+
+1. Install dependencies
+```bash
+npm install
+```
+
+2. Set up environment variables
+Create a `.env` file in the root directory:
+```env
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=your_password
+DB_NAME=auth_db
+JWT_SECRET=your_jwt_secret_key
+PEPPER=your_password_pepper
+```
+This `.env` configures the node server & docker-compose simultaneously to have matching configuration.
+
+3. Start the PostgreSQL database & application
+```bash
+docker compose up
+```
+
+4. Run database migrations
+```bash
+npx drizzle-kit push
+```
+Already configured via `.env`.
 
 ## Development
 

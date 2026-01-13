@@ -10,6 +10,25 @@ services:
       - "${DB_PORT?missing db port}:5432"
     volumes:
       - auth_db_data:/var/lib/postgresql/data
+  
+  auth_app:
+    container_name: auth-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: auth_database
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME?missing db name}
+      DB_USERNAME: ${DB_USERNAME?missing db username}
+      DB_PASSWORD: ${DB_PASSWORD?missing db password}
+      JWT_SECRET: ${JWT_SECRET?missing jwt secret}
+      PEPPER: ${PEPPER?missing pepper}
+      PORT: ${PORT?missing app port}
+    ports:
+      - "${PORT?missing app port}:${PORT?missing app port}"
+    depends_on:
+      - auth_database
 
 volumes:
   auth_db_data:

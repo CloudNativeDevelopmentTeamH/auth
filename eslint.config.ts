@@ -10,7 +10,7 @@ const __dirname = dirname(__filename);
 
 export default defineConfig([
   {
-    ignores: ["dist/**", "node_modules/**"]
+    ignores: ["dist/**", "node_modules/**", "drizzle.config.ts", "eslint.config.ts"]
   },
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
