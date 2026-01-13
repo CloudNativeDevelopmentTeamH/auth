@@ -86,7 +86,7 @@ This `.env` configures the node server & docker-compose simultaneously to have m
 
 3. Start the PostgreSQL database
 ```bash
-docker compose up -d auth_database
+docker compose up -d database
 ```
 
 4. Run database migrations

@@ -1,5 +1,5 @@
 services:
-  auth_database:
+  database:
     container_name: auth-postgres
     image: postgres:16-alpine
     environment:
@@ -9,9 +9,9 @@ services:
     ports:
       - "${DB_PORT?missing db port}:5432"
     volumes:
-      - auth_db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
   
-  auth_app:
+  app:
     container_name: auth-app
     build:
       context: .
@@ -28,7 +28,7 @@ services:
     ports:
       - "${PORT?missing app port}:${PORT?missing app port}"
     depends_on:
-      - auth_database
+      - database
 
 volumes:
-  auth_db_data:
+  db_data:
