@@ -30,6 +30,7 @@ RUN chown -R node:node /app
 USER node
 
 # Expose port
-EXPOSE 3000
+ARG PORT=3000
+EXPOSE ${PORT}
 # Start the application
 CMD ["node", "dist/server.js"]

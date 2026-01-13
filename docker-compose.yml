@@ -16,8 +16,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        PORT: ${PORT?missing app port}
     environment:
-      DB_HOST: auth_database
+      DB_HOST: database
       DB_PORT: 5432
       DB_NAME: ${DB_NAME?missing db name}
       DB_USERNAME: ${DB_USERNAME?missing db username}
