@@ -341,7 +341,7 @@ describe("Auth API Integration Tests", () => {
 describe("Health Check", () => {
   it("should return 200 for health check", async () => {
     const response = await request(app)
-      .get("/health/healthz")
+      .get("/health")
       .expect(200);
 
     expect(response.text).toBe("OK");

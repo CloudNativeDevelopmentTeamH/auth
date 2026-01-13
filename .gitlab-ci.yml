@@ -1,5 +1,6 @@
 stages:
   - 🧪 test
+  - 🔗 integration
   - 🏗️ build
   - 🚀 deploy
 
@@ -25,4 +26,4 @@ test:
   extends: .node_default
   script:
     - npm ci
-    - npm test
+    - npm test:unit
