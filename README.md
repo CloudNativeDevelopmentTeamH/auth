@@ -105,98 +105,6 @@ npm run dev
 
 The service will be available at `http://localhost:3000`
 
-## API Endpoints
-
-### POST /api/auth/register
-Register a new user account.
-
-**Request Body:**
-```json
-{
-  "username": "john_doe",
-  "email": "john@example.com",
-  "password": "SecurePassword123!"
-}
-```
-
-**Response:** `201 Created`
-```json
-{
-  "message": "User registered successfully"
-}
-```
-
-### GET /api/auth/login
-Authenticate user and receive JWT token in HTTP-only cookie.
-
-**Request Body:**
-```json
-{
-  "email": "john@example.com",
-  "password": "SecurePassword123!"
-}
-```
-
-**Response:** `200 OK`
-```json
-{
-  "message": "Login successful"
-}
-```
-
-**Sets Cookie:** `auth_token` (HTTP-only, Secure, SameSite=Strict)
-
-### GET /api/auth/profile
-Get authenticated user profile information.
-
-**Headers:** Requires `auth_token` cookie
-
-**Response:** `200 OK`
-```json
-{
-  "id": "uuid",
-  "username": "john_doe",
-  "email": "john@example.com",
-  "createdAt": "2026-01-12T00:00:00.000Z"
-}
-```
-
-### GET /api/auth/authenticate
-Verify token validity without returning user data.
-
-**Headers:** Requires `auth_token` cookie
-
-**Response:** `200 OK`
-```json
-{
-  "authenticated": true
-}
-```
-
-### POST /api/auth/logout
-Logout user and clear authentication cookie.
-
-**Headers:** Requires `auth_token` cookie
-
-**Response:** `200 OK`
-```json
-{
-  "message": "Logout successful"
-}
-```
-
-### DELETE /api/auth/delete
-Delete user account permanently.
-
-**Headers:** Requires `auth_token` cookie
-
-**Response:** `200 OK`
-```json
-{
-  "message": "Account deleted successfully"
-}
-```
-
 ## Development
 
 ### Available Scripts
@@ -278,14 +186,6 @@ auth/
 ├── docker-compose.yml         # PostgreSQL container
 └── package.json
 ```
-
-## Contributing
-
-1. Follow the existing code structure and Clean Architecture principles
-2. Write tests for new features
-3. Ensure all tests pass before submitting
-4. Follow TypeScript best practices
-5. Use ESLint for code style consistency
 
 ## License
 
