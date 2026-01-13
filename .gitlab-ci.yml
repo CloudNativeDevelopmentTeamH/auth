@@ -1,0 +1,28 @@
+stages:
+  - 🧪 test
+  - 🏗️ build
+  - 🚀 deploy
+
+.node_default:
+  image: node:24-alpine
+  cache:
+    key:
+      files:
+        - package.json
+        - package-lock.json
+    paths:
+      - node_modules/
+
+lint:
+  stage: 🧪 test
+  extends: .node_default
+  script:
+    - npm ci
+    - npm run lint
+
+test:
+  stage: 🧪 test
+  extends: .node_default
+  script:
+    - npm ci
+    - npm test
