@@ -26,4 +26,4 @@ test:
   extends: .node_default
   script:
     - npm ci
-    - npm test:unit
+    - npm run test:unit
