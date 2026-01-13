@@ -24,7 +24,7 @@ const notFound: RequestHandler = (_req, res) => {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+const errorHandler: ErrorRequestHandler = (err, req, res) => {
   if (err instanceof AppError) {
     return res.status(err.status).json({
       error: {

@@ -1,28 +1,23 @@
 {
   "compilerOptions": {
-    // https://www.totaltypescript.com/tsconfig-cheat-sheet
-    
-    // Modules    
-    // https://aka.ms/tsconfig/module
-    // bundler
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    // compiler options
+    "module": "NodeNext",
+    "outDir": "dist",
+    "rootDir": "src",
+    "sourceMap": true,
+
+    // Implied by `"module": "nodenext"`:
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
-    "customConditions": ["module"],
+    "target": "esnext",
 
-    // recommended for bundler
-    "noEmit": true,
-    "allowImportingTsExtensions": true,
-    "allowArbitraryExtensions": true,
+    // recommended
+    "rewriteRelativeImportExtensions": true,
     "verbatimModuleSyntax": true,
-
-    // base options
     "skipLibCheck": true,
     "allowJs": true,
     "resolveJsonModule": true,
     "moduleDetection": "force",
-
-    // Interop Constraints
     "isolatedModules": true,
 
     // Type Checking
@@ -36,4 +31,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
   },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -1,12 +1,14 @@
 {
   "name": "auth",
   "version": "1.0.0",
-  "type": "module",
   "description": "Authentication Service",
+  "type": "module",
   "main": "./src/server.ts",
   "scripts": {
     "test": "vitest",
     "dev": "nodemon --exec tsx ./src/server.ts",
+    "build": "tsc",
+    "start": "node ./dist/server.js",
     "lint": "eslint . --ext .ts",
     "db_studio": "npx drizzle-kit studio"
   },
