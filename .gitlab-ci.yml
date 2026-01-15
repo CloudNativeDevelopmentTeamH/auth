@@ -31,5 +31,7 @@ test:
 integration_test:
   stage: 🔗 integration
   extends: .node_default
+  services:
+    - docker:dind
   script:
-    - docker info
+    - docker version
