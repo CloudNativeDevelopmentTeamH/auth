@@ -45,3 +45,8 @@ integration_test:
     JWT_SECRET: test_jwt_secret_key_for_ci
     PEPPER: test_pepper_value_for_ci
     PORT: "3000"
+  before_script:
+    - npm ci
+    - npx drizzle-kit push
+  script:
+    - npm run test:integration
