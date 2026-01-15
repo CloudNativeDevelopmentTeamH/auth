@@ -1,6 +1,6 @@
 stages:
-  - 🧪 test
   - 🔗 integration
+  - 🧪 test
   - 🏗️ build
   - 🚀 deploy
 
