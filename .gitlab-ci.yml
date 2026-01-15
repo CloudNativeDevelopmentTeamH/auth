@@ -30,8 +30,18 @@ test:
 
 integration_test:
   stage: 🔗 integration
-  extends: .node_default
+  image: node:24-alpine
   services:
-    - docker:dind
-  script:
-    - docker version
+    - postgres:16-alpine
+  variables:
+    POSTGRES_DB: auth_test
+    POSTGRES_USER: user
+    POSTGRES_PASSWORD: password
+    DB_HOST: postgres
+    DB_PORT: "5432"
+    DB_NAME: $POSTGRES_DB
+    DB_USERNAME: $POSTGRES_USER
+    DB_PASSWORD: $POSTGRES_PASSWORD
+    JWT_SECRET: test_jwt_secret_key_for_ci
+    PEPPER: test_pepper_value_for_ci
+    PORT: "3000"
