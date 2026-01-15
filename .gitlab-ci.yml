@@ -27,3 +27,9 @@ test:
   script:
     - npm ci
     - npm run test:unit
+
+integration_test:
+  stage: 🔗 integration
+  extends: .node_default
+  script:
+    - docker info
