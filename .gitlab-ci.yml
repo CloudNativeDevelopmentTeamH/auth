@@ -1,6 +1,6 @@
 stages:
-  - 🔗 integration
   - 🧪 test
+  - 🔗 integration
   - 🏗️ build
   - 🚀 deploy
 
@@ -28,7 +28,14 @@ test:
     - npm ci
     - npm run test:unit
 
-integration_test:
+build:
+  stage: 🧪 test
+  extends: .node_default
+  script:
+    - npm ci
+    - npm run build
+
+integration-test:
   stage: 🔗 integration
   image: node:24-alpine
   services:
@@ -50,3 +57,11 @@ integration_test:
     - npx drizzle-kit push
   script:
     - npm run test:integration
+
+build_image:
+  stage: 🏗️ build
+  image: docker:latest
+  services:
+    - docker:latest-dind
+  script:
+    - docker build .
