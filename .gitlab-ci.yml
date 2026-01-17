@@ -14,6 +14,14 @@ stages:
     paths:
       - node_modules/
 
+.app_version:
+  script:
+    - export SHORT_SHA=$(echo $CI_COMMIT_SHA | cut -c1-8)
+    - echo "APP_VERSION=1.${CI_PIPELINE_IID}.${SHORT_SHA}" > app_version.env
+  artifacts:
+    reports:
+      dotenv: app_version.env
+
 lint:
   stage: 🧪 test
   extends: .node_default
@@ -34,6 +42,13 @@ build:
   script:
     - npm ci
     - npm run build
+
+set_app_version:
+  stage: 🏗️ build
+  extends: .app_version
+  image: alpine:latest
+  script:
+    - echo "App version set to $APP_VERSION"
 
 integration-test:
   stage: 🔗 integration
@@ -60,8 +75,11 @@ integration-test:
 
 build_image:
   stage: 🏗️ build
+  extends: .app_version
   image: docker:latest
   services:
-    - docker:latest-dind
+    - docker:dind
+  before_script:
+    - docker login $HARBOR_URL -u $HARBOR_ROBOT_NAME -p $HARBOR_ROBOT_TOKEN
   script:
-    - docker build .
+    - echo "$APP_VERSION"

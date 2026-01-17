@@ -1,6 +1,6 @@
 # Authentication Service
 
-A secure, production-ready authentication microservice built with TypeScript, following Clean Architecture principles. This service provides user registration, login, session management, and JWT-based authentication.
+An authentication microservice built with TypeScript, following Clean Architecture principles. Built as part of Cloud Native Development lecture. This service provides user registration, login, session management, and JWT-based authentication.
 
 ## Features
 
