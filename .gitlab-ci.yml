@@ -99,8 +99,8 @@ push-image-ecr:
     name: amazon/aws-cli:latest
     entrypoint: [""]
   before_script:
-    - apk add skopeo
+    - yum install -y skopeo
     - ECR_PASSWORD=$(aws ecr get-login-password)
   script:
     - skopeo copy --src-creds $HARBOR_ROBOT_NAME:$HARBOR_ROBOT_TOKEN --dest-creds AWS:$ECR_PASSWORD docker://$HARBOR_IMAGE_PREFIX/focusboard-auth:$APP_VERSION docker://$ECR_REGISTRY/focusboard-auth:$APP_VERSION
-    - skopeo copy --src-creds $HARBOR_ROBOT_NAME:$HARBOR_ROBOT_TOKEN --dest-creds AWS:$ECR_PASSWORD docker://$HARBOR_IMAGE_PREFIX/focusboard-auth:latest docker://$ECR_REGISTRY/focusboard-auth:latest
+    - skopeo copy --src-creds $HARBOR_ROBOT_NAME:$HARBOR_ROBOT_TOKEN --dest-creds AWS:$ECR_PASSWORD docker://$HARBOR_IMAGE_PREFIX/focusboard-auth:latest docker://$ECR_REGISTRY/focusboard-auth:latest 
