@@ -95,11 +95,9 @@ push-image-ecr:
   needs:
     - set-app-version
     - build-image
-  image:
-    name: amazon/aws-cli:latest
-    entrypoint: [""]
+  image: quay.io/skopeo/stable:latest
   before_script:
-    - yum install -y skopeo
+    - dnf install -y awscli
     - ECR_PASSWORD=$(aws ecr get-login-password)
   script:
     - skopeo copy --src-creds $HARBOR_ROBOT_NAME:$HARBOR_ROBOT_TOKEN --dest-creds AWS:$ECR_PASSWORD docker://$HARBOR_IMAGE_PREFIX/focusboard-auth:$APP_VERSION docker://$ECR_REGISTRY/focusboard-auth:$APP_VERSION
