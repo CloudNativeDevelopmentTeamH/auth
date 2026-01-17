@@ -78,7 +78,8 @@ set_app_version:
 
 build_image:
   stage: 🏗️ build
-  extends: .app_version
+  needs:
+    - set_app_version
   image: docker:latest
   services:
     - docker:dind
@@ -91,7 +92,9 @@ build_image:
 
 push_image_ecr:
   stage: 🏗️ build
-  extends: .app_version
+  needs:
+    - set_app_version
+    - build_image
   image:
     name: amazon/aws-cli:latest
     entrypoint: [""]
