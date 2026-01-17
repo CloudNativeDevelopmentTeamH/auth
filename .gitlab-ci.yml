@@ -1,6 +1,7 @@
 stages:
   - 🧪 test
   - 🔗 integration
+  - 🔖 app-version
   - 🏗️ build
   - 🚀 deploy
 
@@ -16,11 +17,14 @@ stages:
 
 .app_version:
   script:
-    - export SHORT_SHA=$(echo $CI_COMMIT_SHA | cut -c1-8)
-    - echo "APP_VERSION=1.${CI_PIPELINE_IID}.${SHORT_SHA}" > app_version.env
+    - $APP_VERSION = "1.${CI_COMMIT_SHORT_SHA}"
+    - echo "APP_VERSION=$APP_VERSION" > app_version.env
+    - echo $APP_VERSION > app_version
   artifacts:
     reports:
       dotenv: app_version.env
+    paths:
+      - app_version
 
 lint:
   stage: 🧪 test
@@ -42,13 +46,6 @@ build:
   script:
     - npm ci
     - npm run build
-
-set_app_version:
-  stage: 🏗️ build
-  extends: .app_version
-  image: alpine:latest
-  script:
-    - echo "App version set to $APP_VERSION"
 
 integration-test:
   stage: 🔗 integration
@@ -72,6 +69,13 @@ integration-test:
     - npx drizzle-kit push
   script:
     - npm run test:integration
+
+set_app_version:
+  stage: 🔖 app-version
+  extends: .app_version
+  image: alpine:latest
+  script:
+    - echo "App version set to $APP_VERSION"
 
 build_image:
   stage: 🏗️ build
