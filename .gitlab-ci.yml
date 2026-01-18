@@ -97,8 +97,8 @@ push-image-ecr:
     - build-image
   image: alpine:latest
   before_script:
-    - apk add --no-cache skopeo aws-cli
-    - ECR_PASSWORD=$(aws ecr get-login-password --region $AWS_REGION)
+    - apk add skopeo aws-cli
+    - ECR_PASSWORD=$(aws ecr get-login-password)
   script:
     - skopeo copy --src-creds $HARBOR_ROBOT_NAME:$HARBOR_ROBOT_TOKEN --dest-creds AWS:$ECR_PASSWORD docker://$HARBOR_IMAGE_PREFIX/focusboard-auth:$APP_VERSION docker://$ECR_REGISTRY/focusboard-auth:$APP_VERSION
     - skopeo copy --src-creds $HARBOR_ROBOT_NAME:$HARBOR_ROBOT_TOKEN --dest-creds AWS:$ECR_PASSWORD docker://$HARBOR_IMAGE_PREFIX/focusboard-auth:latest docker://$ECR_REGISTRY/focusboard-auth:latest 
