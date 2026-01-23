@@ -183,7 +183,6 @@ describe("Auth API Integration Tests", () => {
         .get("/auth/profile")
         .set("Cookie", [`auth_token=${authToken}`])
         .expect(200);
-      console.log(response.body);
 
       expect(response.body).toBeDefined();
       expect(response.body.user.email).toBe(testUser.email);

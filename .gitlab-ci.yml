@@ -17,7 +17,7 @@ stages:
 
 .app_version:
   script:
-    - APP_VERSION="1.${CI_COMMIT_SHORT_SHA}"
+    - APP_VERSION="1.$CI_PIPELINE_IID.${CI_COMMIT_SHORT_SHA}"
     - echo "APP_VERSION=$APP_VERSION" > app_version.env
     - echo $APP_VERSION > app_version
   artifacts:
