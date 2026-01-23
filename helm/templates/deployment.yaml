@@ -15,7 +15,14 @@ spec:
       labels:
         app: auth-app
     spec:
-      serviceAccountName: eks-service-account # make helm value
+      serviceAccountName: {{ .Values.auth.serviceAccount.name }}
       containers:
        - name: auth-app
-         image: 758280076486.dkr.ecr.eu-central-1.amazonaws.com/focusboard/auth:latest
+         image: "{{ .Values.auth.image.repository }}:{{ .Values.auth.image.tag }}"
+         ports:
+          - containerPort: {{ .Values.auth.port }}
+         envFrom:
+         - configMapRef:
+             name: app-config
+         - secretRef:
+             name: secrets

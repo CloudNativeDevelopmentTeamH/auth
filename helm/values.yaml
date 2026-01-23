@@ -1,0 +1,19 @@
+# Auth service configuration
+auth:
+  port: 3000
+  image:
+    repository: 758280076486.dkr.ecr.eu-central-1.amazonaws.com/focusboard/auth
+    tag: latest
+  replicas: 2
+  serviceAccount:
+    name: eks-service-account
+
+# PostgreSQL configuration
+postgres:
+  serviceName: database
+  port: 5432
+  image:
+    repository: postgres
+    tag: "16-alpine"
+  database: "auth"
+  user: "test"
