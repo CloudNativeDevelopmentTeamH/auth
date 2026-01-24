@@ -8,19 +8,21 @@ spec:
 
   selector:
     matchLabels:
-      app: auth-app
+      app: {{ .Values.auth.name }}
 
   template:
     metadata:
       labels:
-        app: auth-app
+        app: {{ .Values.auth.name }}
     spec:
       serviceAccountName: {{ .Values.auth.serviceAccount.name }}
       containers:
-       - name: auth-app
+       - name: {{ .Values.auth.name }}
          image: "{{ .Values.auth.image.repository }}:{{ .Values.auth.image.tag }}"
          ports:
           - containerPort: {{ .Values.auth.port }}
+            name: http
+            protocol: TCP
          envFrom:
          - configMapRef:
              name: app-config

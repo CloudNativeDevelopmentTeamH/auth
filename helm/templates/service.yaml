@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.auth.name }}-service"
+  namespace: auth
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ .Values.auth.name }}
+  ports:
+    - port: 80
+      targetPort: {{ .Values.auth.port }}
+      name: http
