@@ -7,6 +7,7 @@ auth:
   replicas: 2
   serviceAccount:
     name: eks-service-account
+    roleArn: "arn:aws:iam::758280076486:role/eks-auth-ecr-access-role"
 
 # PostgreSQL configuration
 postgres:
