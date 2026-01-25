@@ -1,0 +1,333 @@
+_type: export
+__export_format: 4
+__export_date: 2026-01-25T17:19:07.944Z
+__export_source: insomnia.desktop.app:v2023.1.0
+resources:
+  - _id: greq_29cf8c38047a4377b7fa1c98dbc12bad
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1769360227273
+    created: 1769357835321
+    url: localhost:50051
+    name: Authenticate
+    description: ""
+    protoFileId: pf_dc8e87b2cc7044b49b7e0275db97a91d
+    protoMethodName: /auth.AuthService/Authenticate
+    metadata: []
+    body:
+      text: >-
+        {
+        	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImlhdCI6MTc2OTM1ODA5MSwiZXhwIjoxNzY5NDQ0NDkxfQ.MqIu8KVwYmB7FLI30vQsVDYehR5IPPiY7rLF0SgstBI"
+        }
+    metaSortKey: -1769357835321
+    isPrivate: false
+    _type: grpc_request
+  - _id: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    parentId: null
+    modified: 1768333646986
+    created: 1715294973667
+    name: focus-auth
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_e9694e719e014f2bbd916cb964a45f52
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1769352701797
+    created: 1768333341680
+    url: "{{ _.base }}/health"
+    name: Health
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1768333341680
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_bb2967c9a6bf43afaf95e73f5f22763f
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1769352723741
+    created: 1767396908601
+    url: "{{ _.base }}/auth/fake"
+    name: not found
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1767396908601
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9b6611fd4fe44853b5b565b518e6b2cb
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1769352734124
+    created: 1767396215340
+    url: "{{ _.base }}/auth/delete"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1767396215340
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e66a92508a08453c941f0f0bb0ef6afe
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1769352740917
+    created: 1767396131672
+    url: "{{ _.base }}/auth/logout"
+    name: Logout
+    description: ""
+    method: POST
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1767396131672
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_20c47711d98c4ce8aee9c7459cf49572
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1769352763078
+    created: 1767395171050
+    url: "{{ _.base }}/auth/profile"
+    name: Profile
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1767395171050
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e163483c03cc4397b89ba2ead610e2a9
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1769352768309
+    created: 1767394796233
+    url: "{{ _.base }}/auth/login"
+    name: Login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "test@email.com",
+        	"password": "12345678"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1767394796233
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_59c82529eaaa4368aed18ec3d9f436db
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1769352639430
+    created: 1767394133446
+    url: "{{ _.base }}/auth/register"
+    name: Register
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "test@email.com",
+        	"name": "User",
+        	"password": "12345678"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1767394133446
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_609eaaa8bc3540b3851634992bbe786d
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1769358115568
+    created: 1769356849889
+    url: "{{ _.base }}/auth/authenticate"
+    name: Authenticate
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1767394133396
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_c7ffe7baf9b8fa79bc3b7a94102f5a9d3fc594d9
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1769352509391
+    created: 1715294973670
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: {}
+    color: null
+    isPrivate: false
+    metaSortKey: 1715294973670
+    _type: environment
+  - _id: jar_c7ffe7baf9b8fa79bc3b7a94102f5a9d3fc594d9
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1769360219199
+    created: 1715294973672
+    name: Default Jar
+    cookies:
+      - key: auth_token
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImlhdCI6MTc2OTM2MDIxOSwiZXhwIjoxNzY5NDQ2NjE5fQ.4XV_tuRwCFTuOSdyfy2JyGnLoYuRdkP7XcvptI1pYpM
+        expires: 2026-01-26T16:56:59.000Z
+        maxAge: 86400
+        domain: localhost
+        path: /
+        httpOnly: true
+        extensions:
+          - SameSite=Lax
+        hostOnly: true
+        creation: 2026-01-02T23:14:23.185Z
+        lastAccessed: 2026-01-25T16:56:59.199Z
+        id: "1501488595728957"
+      - key: auth_token
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY5MzU2NDg0LCJleHAiOjE3Njk0NDI4ODR9.5OuKO809lhW9WBybvpqG-PwFXpA81pvfHoqCLqhPFoU
+        expires: 2026-01-26T15:54:44.000Z
+        maxAge: 86400
+        domain: k8s-auth-authingr-e5aa653333-252007710.eu-central-1.elb.amazonaws.com
+        path: /
+        secure: true
+        httpOnly: true
+        extensions:
+          - SameSite=Strict
+        hostOnly: true
+        creation: 2026-01-25T15:54:34.078Z
+        lastAccessed: 2026-01-25T15:54:45.441Z
+        id: "4324646118603799"
+    _type: cookie_jar
+  - _id: spc_d6bfb3a9fa1d4d59a022b9ba771f22df
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1715294973667
+    created: 1715294973667
+    fileName: patientor
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: pf_dc8e87b2cc7044b49b7e0275db97a91d
+    parentId: wrk_9ad675a495044b8e8eafb6b18244aa9e
+    modified: 1769358057940
+    created: 1769358057940
+    name: auth.proto
+    protoText: "syntax = \"proto3\";\r
+
+      \r
+
+      package auth;\r
+
+      \r
+
+      service AuthService {\r
+
+      \  rpc Authenticate(AuthenticateRequest) returns
+      (AuthenticateResponse);\r
+
+      }\r
+
+      \r
+
+      message AuthenticateRequest {\r
+
+      \  string token = 1;\r
+
+      }\r
+
+      \r
+
+      message AuthenticateResponse {\r
+
+      \  int32 user_id = 1;\r
+
+      }\r\n"
+    _type: proto_file
+  - _id: env_9e814a212ed74983b31de0e5ac6c242d
+    parentId: env_c7ffe7baf9b8fa79bc3b7a94102f5a9d3fc594d9
+    modified: 1769352672744
+    created: 1769352578236
+    name: Focusboard - Auth Prod
+    data:
+      base: http://k8s-auth-authingr-e5aa653333-252007710.eu-central-1.elb.amazonaws.com
+    dataPropertyOrder:
+      "&":
+        - base
+    color: null
+    isPrivate: false
+    metaSortKey: 1769352578236
+    _type: environment
+  - _id: env_7f35c0f08cbe4b918006bcca5a6002cd
+    parentId: env_c7ffe7baf9b8fa79bc3b7a94102f5a9d3fc594d9
+    modified: 1769352691692
+    created: 1769352666400
+    name: Focusboard - Auth Local
+    data:
+      base: http://localhost:3000
+    dataPropertyOrder:
+      "&":
+        - base
+    color: null
+    isPrivate: false
+    metaSortKey: 1769352666400
+    _type: environment
