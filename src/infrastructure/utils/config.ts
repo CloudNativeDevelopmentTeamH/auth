@@ -18,6 +18,7 @@ function buildDatabaseUrl(): string {
 
 export default {
   port: Number(getEnv('PORT')),
+  grpcPort: Number(process.env.GRPC_PORT || '50051'),
   pepper: getEnv('PEPPER'),
   jwtSecret: getEnv('JWT_SECRET'),
   database: {
