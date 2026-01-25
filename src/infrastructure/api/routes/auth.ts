@@ -4,12 +4,14 @@ import controller from "../auth.container.ts";
 const COOKIE_NAME = "auth_token";
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: true,
+  // secure: true
+  secure: false,
   path: "/",
   maxAge: 24 * 60 * 60 * 1000,
-  sameSite: "strict" as const
+  // sameSite: "strict" as const
+  sameSite: "lax" as const  // "strict" doesn't work well with HTTP
 }
-
+  
 const router = express.Router();
 
 router.post("/register", async (req, res, next) => {
