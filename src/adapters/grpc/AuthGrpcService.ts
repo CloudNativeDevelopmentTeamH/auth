@@ -1,6 +1,6 @@
 import * as grpc from '@grpc/grpc-js';
 import type AuthenticateUser from '../../usecases/authenticate.ts';
-import type { AuthenticateRequest, AuthenticateResponse } from './proto-loader.ts';
+import type { AuthenticateRequest, AuthenticateResponse } from '../../infrastructure/grpc/proto-loader.ts';
 import UnauthorizedError from '../../usecases/errors/unauthorized.ts';
 
 export default class AuthGrpcService {

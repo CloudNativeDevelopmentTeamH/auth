@@ -1,5 +1,5 @@
-import AuthController from "../../adapters/AuthController.ts";
-import JsonAuthPresenter from "../../adapters/presenter/JsonAuthPresenter.ts";
+import AuthController from "../../adapters/http/AuthController.ts";
+import JsonAuthPresenter from "../../adapters/http/presenter/JsonAuthPresenter.ts";
 import AuthenticateUser from "../../usecases/authenticate.ts";
 import DeleteUser from "../../usecases/delete.ts";
 import LoginUser from "../../usecases/login.ts";

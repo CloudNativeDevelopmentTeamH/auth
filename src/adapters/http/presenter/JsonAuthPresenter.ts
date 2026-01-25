@@ -1,4 +1,4 @@
-import type User from "../../entities/user.ts";
+import type User from "../../../entities/user.ts";
 import type HTTPResponse from "../dtos/HttpResponse.ts";
 import type AuthPresenter from "./AuthPresenter.ts";
 
