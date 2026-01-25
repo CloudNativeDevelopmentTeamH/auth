@@ -72,7 +72,7 @@ integration-test:
     DB_PASSWORD: $POSTGRES_PASSWORD
     JWT_SECRET: test_jwt_secret_key_for_ci
     PEPPER: test_pepper_value_for_ci
-    PORT: "3000"
+    PORT: "4000"
   before_script:
     - npm ci
     - npx drizzle-kit push

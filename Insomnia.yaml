@@ -323,7 +323,7 @@ resources:
     created: 1769352666400
     name: Focusboard - Auth Local
     data:
-      base: http://localhost:3000
+      base: http://localhost:4000
     dataPropertyOrder:
       "&":
         - base

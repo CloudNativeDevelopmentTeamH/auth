@@ -81,7 +81,7 @@ npm install
 2. Set up environment variables
 Create a `.env` file in the root directory:
 ```env
-PORT=3000
+PORT=4000
 GRPC_PORT=50051
 DB_HOST=localhost
 DB_PORT=5432
@@ -109,7 +109,7 @@ npm run dev
 ```
 
 The service will be available at:
-- HTTP REST API: `http://localhost:3000`
+- HTTP REST API: `http://localhost:4000`
 - gRPC API: `localhost:50051`
 
 ### Run Locally
@@ -122,7 +122,7 @@ npm install
 2. Set up environment variables
 Create a `.env` file in the root directory:
 ```env
-PORT=3000
+PORT=4000
 GRPC_PORT=50051
 DB_HOST=localhost
 DB_PORT=5432
@@ -292,7 +292,7 @@ The [values.yaml](helm/values.yaml) file contains all configurable parameters:
 # Application settings
 auth:
   name: auth-app
-  port: 3000
+  port: 80
   grpcPort: 50051
   image:
     repository: <your-ecr-repo>/auth
