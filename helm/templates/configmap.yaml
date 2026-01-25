@@ -15,7 +15,7 @@ metadata:
   namespace: auth
 data:
   # Database configuration
-  DB_HOST: postgres-statefulset.auth.svc.cluster.local
+  DB_HOST: "{{ .Values.postgres.serviceName }}.auth.svc.cluster.local"
   DB_PORT: {{ .Values.postgres.port | quote }}
   DB_NAME: {{ .Values.postgres.database | quote }}
   DB_USERNAME: {{ .Values.postgres.user | quote }}
