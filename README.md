@@ -12,19 +12,24 @@ An authentication microservice built with TypeScript, following Clean Architectu
 - 🗄️ **PostgreSQL Database**: Type-safe database queries with Drizzle ORM
 - 🧪 **Comprehensive Testing**: Unit and integration tests with Vitest
 - 📝 **Logging**: Request logging with Pino
-- 🐳 **Docker Support**: Containerized PostgreSQL database
+- 🐳 **Docker Support**: Containerized application and PostgreSQL database
+- 🌐 **Dual Protocol Support**: Both HTTP REST and gRPC interfaces
 
 ## Tech Stack
 
 - **Runtime**: Node.js with TypeScript
-- **Framework**: Express.js
+- **HTTP Framework**: Express.js
+- **gRPC**: Protocol Buffers with @grpc/grpc-js
 - **Database**: PostgreSQL with Drizzle ORM
 - **Authentication**: JWT (jsonwebtoken)
 - **Password Hashing**: Argon2
 - **Validation**: AJV (JSON Schema)
 - **Testing**: Vitest + Supertest
 - **Logging**: Pino
-- **Containerization**: Docker Compose
+- **Containerization**: Docker + Docker Compose
+- **Orchestration**: Kubernetes with Helm charts
+- **Secrets Management**: SOPS for encryption
+- **Cloud Platform**: AWS (EKS, ECR, ALB, EBS)
 
 ## Architecture
 
@@ -37,9 +42,12 @@ src/
 │   ├── ports/         # Inbound and outbound port interfaces
 │   ├── dtos/          # Data transfer objects
 │   └── errors/        # Domain-specific errors
-├── adapters/          # Controllers and presenters
+├── adapters/          # Protocol adapters
+│   ├── http/          # HTTP controllers and presenters
+│   └── grpc/          # gRPC service implementations
 ├── infrastructure/    # External concerns (API, DB, Auth, Validation)
 │   ├── api/           # Express routes and app setup
+│   ├── grpc/          # gRPC server and proto definitions
 │   ├── auth/          # JWT and password crypto implementations
 │   ├── persistence/   # Database schemas and repositories
 │   ├── validation/    # Input validators
@@ -74,6 +82,7 @@ npm install
 Create a `.env` file in the root directory:
 ```env
 PORT=3000
+GRPC_PORT=50051
 DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=postgres
@@ -82,7 +91,7 @@ DB_NAME=auth_db
 JWT_SECRET=your_jwt_secret_key
 PEPPER=your_password_pepper
 ```
-This `.env` configures the node server & docker-compose simultaneously to have matching configuration.
+This `.env` configures both the Node.js server and Docker Compose to have matching configuration.
 
 3. Start the PostgreSQL database
 ```bash
@@ -99,7 +108,9 @@ npx drizzle-kit push
 npm run dev
 ```
 
-The service will be available at `http://localhost:3000`
+The service will be available at:
+- HTTP REST API: `http://localhost:3000`
+- gRPC API: `localhost:50051`
 
 ### Run Locally
 
@@ -112,6 +123,7 @@ npm install
 Create a `.env` file in the root directory:
 ```env
 PORT=3000
+GRPC_PORT=50051
 DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=postgres
@@ -120,7 +132,7 @@ DB_NAME=auth_db
 JWT_SECRET=your_jwt_secret_key
 PEPPER=your_password_pepper
 ```
-This `.env` configures the node server & docker-compose simultaneously to have matching configuration.
+This `.env` configures both the Node.js server and Docker Compose to have matching configuration.
 
 3. Start the PostgreSQL database & application
 ```bash
@@ -138,9 +150,14 @@ Already configured via `.env`.
 ### Available Scripts
 
 - `npm run dev` - Start development server with hot reload
-- `npm test` - Run tests in watch mode
+- `npm run build` - Build TypeScript to JavaScript
+- `npm start` - Run production build
+- `npm test` - Run all tests
+- `npm run test:unit` - Run unit tests only
+- `npm run test:integration` - Run integration tests only
+- `npm run test:watch` - Run tests in watch mode
 - `npm run lint` - Run ESLint
-- `npm run lint` - Apply ESLint suggested fixes
+- `npm run lint:fix` - Apply ESLint suggested fixes
 - `npm run db:studio` - Open Drizzle Studio for database management
 
 ### Running Tests
@@ -202,19 +219,136 @@ The API returns standardized error responses:
 - `409` - Conflict (e.g., email already exists)
 - `500` - Internal server error
 
+## API Endpoints
+
+### HTTP REST API
+
+All endpoints are prefixed with `/api/auth`:
+
+#### POST `/register`
+Create a new user account.
+
+**Request Body:**
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "securePassword123"
+}
+```
+
+**Response:** `201 Created`
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+```
+
+#### POST `/login`
+Authenticate user and receive JWT token in HTTP-only cookie.
+
+**Request Body:**
+```json
+{
+  "email": "john@example.com",
+  "password": "securePassword123"
+}
+```
+
+**Response:** `200 OK` + `auth_token` cookie
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+```
+
+#### GET `/profile`
+Get authenticated user information. Requires `auth_token` cookie.
+
+**Response:** `200 OK`
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+```
+
+#### GET `/authenticate`
+Verify JWT token validity. Requires `auth_token` cookie.
+
+**Response:** `200 OK`
+```json
+{
+  "userId": 1,
+  "valid": true
+}
+```
+
+#### POST `/logout`
+Invalidate user session. Requires `auth_token` cookie.
+
+**Response:** `200 OK`
+```json
+{
+  "message": "Logout successful"
+}
+```
+
+#### DELETE `/delete`
+Delete user account. Requires `auth_token` cookie.
+
+**Response:** `200 OK`
+```json
+{
+  "message": "User deleted successfully"
+}
+```
+
+### gRPC API
+
+The gRPC service runs on port `50051` and provides the following RPC:
+
+#### `Authenticate`
+Verify JWT token validity.
+
+**Request:**
+```protobuf
+message AuthenticateRequest {
+  string token = 1;
+}
+```
+
+**Response:**
+```protobuf
+message AuthenticateResponse {
+  int32 user_id = 1;
+}
+```
+
+**Proto Definition:** [auth.proto](src/infrastructure/grpc/proto/auth.proto)
+
 ## Project Structure
 
 ```
 auth/
 ├── src/
+│   ├── server.ts              # Entry point - starts HTTP & gRPC servers
 │   ├── entities/              # Domain models
 │   ├── usecases/              # Business logic
 │   │   ├── ports/             # Interface definitions
 │   │   ├── dtos/              # Data transfer objects
 │   │   └── errors/            # Custom error classes
-│   ├── adapters/              # Controllers and presenters
+│   ├── adapters/              # Protocol adapters
+│   │   ├── http/              # HTTP controllers and presenters
+│   │   └── grpc/              # gRPC service implementations
 │   └── infrastructure/        # Technical implementations
 │       ├── api/               # Express setup and routes
+│       ├── grpc/              # gRPC server and proto files
 │       ├── auth/              # JWT and password handling
 │       ├── persistence/       # Database layer
 │       ├── validation/        # Input validators
@@ -223,12 +357,127 @@ auth/
 │   ├── integration/           # API integration tests
 │   ├── usecases/              # Unit tests for use cases
 │   └── mocks/                 # Test doubles
+├── helm/                      # Kubernetes Helm charts
 ├── drizzle/                   # Database migrations
-├── docker-compose.yml         # PostgreSQL container
+├── docker-compose.yml         # PostgreSQL & app containers
+├── Dockerfile                 # Application container image
 └── package.json
+```
+
+## Kubernetes Deployment
+
+The project includes Helm charts for deploying to Kubernetes clusters with full production-ready configurations.
+
+### Helm Chart Structure
+
+The Helm chart provides a complete Kubernetes deployment including:
+
+- **Application Deployment**: 2-replica deployment with configurable resources
+- **PostgreSQL StatefulSet**: Persistent database with EBS volume storage
+- **Services**: ClusterIP services for both app and database
+- **Ingress**: AWS ALB ingress controller integration
+- **ConfigMaps**: Environment configuration management
+- **Secrets**: Sensitive data management (encrypted)
+- **ServiceAccount**: IAM role integration for AWS ECR access
+- **PersistentVolumeClaim**: 1Gi EBS storage for PostgreSQL data
+
+### Prerequisites
+
+- Kubernetes cluster (tested on AWS EKS)
+- Helm 3.x installed
+- kubectl configured to access your cluster
+- AWS ALB Ingress Controller installed (for ingress)
+- Container image pushed to ECR or container registry
+
+### Configuration
+
+The [values.yaml](helm/values.yaml) file contains all configurable parameters:
+
+```yaml
+# Application settings
+auth:
+  name: auth-app
+  port: 3000
+  grpcPort: 50051
+  image:
+    repository: <your-ecr-repo>/auth
+    tag: latest
+  replicas: 2
+
+# PostgreSQL settings
+postgres:
+  serviceName: database
+  port: 5432
+  database: "auth"
+  user: "test"
+```
+
+### Secrets Management
+
+The project includes an encrypted secrets file [secrets.enc.yaml](helm/templates/secrets.enc.yaml) managed with [SOPS](https://github.com/mozilla/sops).
+
+**Decrypt secrets before deployment:**
+
+```bash
+# Decrypt the encrypted secrets file
+sops -d helm/templates/secrets.enc.yaml > helm/templates/secrets.yaml
+```
+
+The decrypted `secrets.yaml` should contain:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secrets
+  namespace: auth
+type: Opaque
+stringData:
+  DB_PASSWORD: "your_database_password"
+  JWT_SECRET: "your_jwt_secret_key"
+  PEPPER: "your_password_pepper"
+```
+
+### Deploy to Kubernetes
+
+```bash
+helm install auth ./helm -n auth
+```
+
+### Update Deployment
+
+To update the deployment with new configurations or image versions:
+
+```bash
+# Update values.yaml or use --set flags
+helm upgrade auth ./helm -n auth
+
+# Or force update with new image
+helm upgrade auth ./helm -n auth --set auth.image.tag=v1.2.3
+```
+
+### Uninstall
+
+To remove the deployment:
+
+```bash
+helm uninstall auth -n auth
+kubectl delete namespace auth
+```
+
+### Accessing the Application
+
+After deployment, get the ingress URL:
+
+```bash
+kubectl get ingress -n auth
+```
+
+The ALB DNS name will be shown in the ADDRESS column. Access your API at:
+```
+http://<alb-dns-name>/api/auth/health
 ```
 
 ## License
 
 ISC
-
