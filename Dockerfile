@@ -25,6 +25,9 @@ RUN npm ci --omit=dev
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
+# Copy proto files (not compiled by TypeScript)
+COPY --from=builder /app/src/infrastructure/grpc/proto ./dist/infrastructure/grpc/proto
+
 # Set permissions
 RUN chown -R node:node /app
 USER node
