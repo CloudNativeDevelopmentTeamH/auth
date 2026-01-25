@@ -451,9 +451,6 @@ To update the deployment with new configurations or image versions:
 ```bash
 # Update values.yaml or use --set flags
 helm upgrade auth ./helm -n auth
-
-# Or force update with new image
-helm upgrade auth ./helm -n auth --set auth.image.tag=v1.2.3
 ```
 
 ### Uninstall
