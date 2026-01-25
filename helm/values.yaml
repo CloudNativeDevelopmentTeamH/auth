@@ -2,6 +2,7 @@
 auth:
   name: auth-app
   port: 3000
+  grpcPort: 50051
   image:
     repository: 758280076486.dkr.ecr.eu-central-1.amazonaws.com/focusboard/auth
     tag: latest
