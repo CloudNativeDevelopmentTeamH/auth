@@ -122,7 +122,9 @@ deploy-eks-prod:
   extends: .image_names
   needs:
     - push-image-ecr
-  image: alpine/helm:4.0.5
+  image:
+    name: alpine/helm:4.0.5
+    entrypoint: [""]
   before_script:
     - apk add aws-cli
     - aws eks update-kubeconfig --region eu-central-1 --name cnd-prod-eks
