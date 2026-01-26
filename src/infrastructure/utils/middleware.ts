@@ -34,7 +34,12 @@ const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
     });
   }
 
-  req.log.error(err);
+  // Log error if logger is available
+  if (req.log) {
+    req.log.error(err);
+  } else {
+    console.error('Error:', err);
+  }
 
   return res.status(500).json({
     error: {
