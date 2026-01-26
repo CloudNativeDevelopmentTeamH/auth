@@ -11,6 +11,9 @@ spec:
     - port: 80
       targetPort: {{ .Values.auth.port }}
       name: http
+    - port: 50051
+      targetPort: {{ .Values.auth.grpcPort }}
+      name: grpc
 
 ---
 apiVersion: v1
