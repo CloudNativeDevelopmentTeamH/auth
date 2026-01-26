@@ -22,9 +22,13 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --omit=dev
 
+# Install drizzle-kit for migrations
+RUN npm install drizzle-kit
+
 # Copy drizzle config and schema for migrations
 COPY drizzle.config.ts ./
-COPY --from=builder /app/src/infrastructure/persistence/schema ./src/infrastructure/persistence/schema
+COPY --from=builder /app/src/infrastructure/utils/config.ts ./src/infrastructure/utils/config.ts
+COPY --from=builder /app/src/infrastructure/persistence/user-schema.ts ./src/infrastructure/persistence/schema.ts
 
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
