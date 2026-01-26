@@ -21,6 +21,9 @@ export default {
   grpcPort: Number(getEnv('GRPC_PORT')),
   pepper: getEnv('PEPPER'),
   jwtSecret: getEnv('JWT_SECRET'),
+  corsOrigins: process.env.CORS_ORIGIN 
+    ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
+    : [],
   database: {
     host: getEnv('DB_HOST'),
     port: Number(getEnv('DB_PORT')),
