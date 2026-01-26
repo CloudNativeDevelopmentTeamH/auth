@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: postgres-statefulset
-  namespace: auth
+  namespace: {{ .Values.namespace }}
 spec:
   serviceName: {{ .Values.postgres.serviceName }}
 

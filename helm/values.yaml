@@ -1,4 +1,7 @@
 # App configuration
+
+namespace: auth
+
 auth:
   name: auth-app
   port: 4000

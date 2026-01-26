@@ -339,6 +339,15 @@ stringData:
 helm install auth ./helm -n auth
 ```
 
+**Initial Database Setup:**
+
+After the first deployment, you need to run database migrations. Port-forward to the PostgreSQL service and run Drizzle push:
+
+```bash
+kubectl port-forward svc/database 5432:5432 -n auth
+npx drizzle-kit push
+```
+
 ### Update Deployment
 
 To update the deployment with new configurations or image versions:
