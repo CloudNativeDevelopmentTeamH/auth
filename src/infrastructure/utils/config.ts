@@ -22,8 +22,8 @@ export default {
   pepper: getEnv('PEPPER'),
   jwtSecret: getEnv('JWT_SECRET'),
   corsOrigins: process.env.CORS_ORIGIN 
-    ? process.env.CORS_ORIGIN
-    : [],
+    ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
+    : [] as string[],
   database: {
     host: getEnv('DB_HOST'),
     port: Number(getEnv('DB_PORT')),
