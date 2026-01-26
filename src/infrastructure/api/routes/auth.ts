@@ -10,7 +10,7 @@ const COOKIE_OPTIONS = {
   sameSite: "none" as const,  // Allows cross-site cookies with credentials
   // REQUIRES HTTPS: secure: true is mandatory with sameSite: "none"
 }
-  
+
 const router = express.Router();
 
 router.post("/register", async (req, res, next) => {
