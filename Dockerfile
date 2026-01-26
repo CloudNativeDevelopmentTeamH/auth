@@ -22,11 +22,19 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --omit=dev
 
+# Copy drizzle config and schema for migrations
+COPY drizzle.config.ts ./
+COPY --from=builder /app/src/infrastructure/persistence/schema ./src/infrastructure/persistence/schema
+
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
 # Copy proto files (not compiled by TypeScript)
 COPY --from=builder /app/src/infrastructure/grpc/proto ./dist/infrastructure/grpc/proto
+
+# Copy and set up entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Set permissions
 RUN chown -R node:node /app
@@ -38,4 +46,4 @@ ENV PORT=${PORT}
 EXPOSE ${PORT}
 
 # Start the application
-CMD ["node", "dist/server.js"]
+ENTRYPOINT ["docker-entrypoint.sh"]
