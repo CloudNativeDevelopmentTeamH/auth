@@ -4,12 +4,11 @@ import controller from "../auth.container.ts";
 const COOKIE_NAME = "auth_token";
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  // secure: true
-  secure: false,
+  secure: true,  // REQUIRED for sameSite: "none"
   path: "/",
   maxAge: 24 * 60 * 60 * 1000,
-  // sameSite: "strict" as const
-  sameSite: "lax" as const  // "strict" doesn't work well with HTTP
+  sameSite: "none" as const,  // Allows cross-site cookies with credentials
+  // REQUIRES HTTPS: secure: true is mandatory with sameSite: "none"
 }
   
 const router = express.Router();

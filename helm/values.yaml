@@ -1,5 +1,7 @@
 namespace: auth
 
+certificateArn: "arn:aws:acm:eu-central-1:758280076486:certificate/946198a1-757c-4868-8e17-e2446087313f"
+
 # App configuration
 auth:
   name: auth-app
@@ -14,7 +16,7 @@ auth:
     roleArn: "arn:aws:iam::758280076486:role/eks-auth-ecr-access-role"
 
   env:
-    corsOrigin: "http://k8s-frontend-frontend-fe6f13f88d-1209588435.eu-central-1.elb.amazonaws.com,http://k8s-focus-focusing-a37b3eb8d5-1609498984.eu-central-1.elb.amazonaws.com"
+    corsOrigin: "https://k8s-frontend-frontend-fe6f13f88d-1209588435.eu-central-1.elb.amazonaws.com,https://k8s-focus-focusing-a37b3eb8d5-1609498984.eu-central-1.elb.amazonaws.com"
 
 # PostgreSQL configuration
 postgres:
