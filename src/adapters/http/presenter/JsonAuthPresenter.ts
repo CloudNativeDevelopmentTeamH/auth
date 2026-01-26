@@ -13,7 +13,8 @@ export default class JsonAuthPresenter implements AuthPresenter {
   presentLogin(token: string): HTTPResponse {
     return {
       statusCode: 200,
-      token
+      token,
+      body: { token }
     };
   }
 
