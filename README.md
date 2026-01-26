@@ -339,7 +339,7 @@ stringData:
 helm install auth ./helm -n auth --create-namespace
 ```
 
-**Initial Database Setup:**
+**(!not necessary!) Initial Database Setup:**
 
 After the first deployment, you need to run database migrations. Port-forward to the PostgreSQL service and run Drizzle push:
 
