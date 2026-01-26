@@ -22,7 +22,7 @@ export default {
   pepper: getEnv('PEPPER'),
   jwtSecret: getEnv('JWT_SECRET'),
   corsOrigins: process.env.CORS_ORIGIN 
-    ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
+    ? process.env.CORS_ORIGIN
     : [],
   database: {
     host: getEnv('DB_HOST'),
