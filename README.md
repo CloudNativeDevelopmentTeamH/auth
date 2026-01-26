@@ -336,7 +336,7 @@ stringData:
 ### Deploy to Kubernetes
 
 ```bash
-helm install auth ./helm -n auth
+helm install auth ./helm -n auth --create-namespace
 ```
 
 **Initial Database Setup:**

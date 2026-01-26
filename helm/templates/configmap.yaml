@@ -4,8 +4,8 @@ metadata:
   name: postgres-config
   namespace: {{ .Values.namespace }}
 data:
-  POSTGRES_DB: {{ .Values.postgres.database | quote }}
-  POSTGRES_USER: {{ .Values.postgres.user | quote }}
+  POSTGRES_DB: {{ .Values.postgres.database }}
+  POSTGRES_USER: {{ .Values.postgres.user }}
   
 ---
 apiVersion: v1
@@ -16,10 +16,10 @@ metadata:
 data:
   # Database configuration
   DB_HOST: "{{ .Values.postgres.serviceName }}.auth.svc.cluster.local"
-  DB_PORT: {{ .Values.postgres.port | quote }}
-  DB_NAME: {{ .Values.postgres.database | quote }}
-  DB_USERNAME: {{ .Values.postgres.user | quote }}
+  DB_PORT: {{ .Values.postgres.port }}
+  DB_NAME: {{ .Values.postgres.database }}
+  DB_USERNAME: {{ .Values.postgres.user }}
   
   # Application configuration
-  PORT: {{ .Values.auth.port | quote }}
-  GRPC_PORT: {{ .Values.auth.grpcPort | quote }}
+  PORT: {{ .Values.auth.port }}
+  GRPC_PORT: {{ .Values.auth.grpcPort }}
