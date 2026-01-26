@@ -16,7 +16,7 @@ auth:
     roleArn: "arn:aws:iam::758280076486:role/eks-auth-ecr-access-role"
 
   env:
-    corsOrigin: "https://k8s-frontend-frontend-fe6f13f88d-1209588435.eu-central-1.elb.amazonaws.com,https://k8s-focus-focusing-a37b3eb8d5-1609498984.eu-central-1.elb.amazonaws.com"
+    corsOrigin: "https://k8s-frontend-frontend-fe6f13f88d-1209588435.eu-central-1.elb.amazonaws.com,https://k8s-focus-focusing-a37b3eb8d5-2089895283.eu-central-1.elb.amazonaws.com"
 
 # PostgreSQL configuration
 postgres:
