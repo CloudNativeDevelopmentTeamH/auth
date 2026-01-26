@@ -128,5 +128,9 @@ deploy-eks-prod:
   before_script:
     - apk add aws-cli
     - aws eks update-kubeconfig --region eu-central-1 --name cnd-prod-eks
+    - export SOPS_AGE_KEY="$SOPS_AGE_KEY"
+    - wget -qO /usr/local/bin/sops https://github.com/getsops/sops/releases/download/v3.9.3/sops-v3.9.3.linux.amd64
+    - chmod +x /usr/local/bin/sops
   script:
+    - sops -d ./helm/templates/secrets.enc.yaml > ./helm/templates/secrets.yaml
     - helm upgrade auth ./helm --namespace auth
