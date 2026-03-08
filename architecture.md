@@ -22,6 +22,7 @@ graph TB
             UserRepo[UserRepository]
             TokenSvc[TokenService]
             CryptoSvc[CryptoService]
+            EventPub[EventPublisher]
         end
     end
 
@@ -34,6 +35,7 @@ graph TB
             DrizzleRepo[Drizzle PostgreSQL<br/>Repository]
             JWTService[JWT Token<br/>Service]
             ArgonService[argon2 Crypto<br/>Service]
+            RabbitMQPublisher[RabbitMQ<br/>Event Publisher]
         end
         
         subgraph Frameworks["Frameworks"]
@@ -43,6 +45,7 @@ graph TB
     end
     
     Database[(PostgreSQL<br/>Database)]
+    RabbitMQ([RabbitMQ<br/>user.events exchange])
 
     HTTP --> Controller
     GRPC --> GrpcService
@@ -53,13 +56,16 @@ graph TB
     UseCaseBox --> UserRepo
     UseCaseBox --> TokenSvc
     UseCaseBox --> CryptoSvc
+    UseCaseBox --> EventPub
     UseCaseBox --> EntityBox
     
     UserRepo -.implements.-> DrizzleRepo
     TokenSvc -.implements.-> JWTService
     CryptoSvc -.implements.-> ArgonService
+    EventPub -.implements.-> RabbitMQPublisher
     
     DrizzleRepo --> Database
+    RabbitMQPublisher --> RabbitMQ
     
     Controller --> Presenter
     Presenter -.uses.-> Express

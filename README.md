@@ -14,6 +14,7 @@ An authentication microservice built with TypeScript, following Clean Architectu
 - 📝 **Logging**: Request logging with Pino
 - 🐳 **Docker Support**: Containerized application and PostgreSQL database
 - 🌐 **Dual Protocol Support**: Both HTTP REST and gRPC interfaces
+- 📨 **Event Publishing**: RabbitMQ integration for async messaging after user registration
 
 ## Tech Stack
 
@@ -27,6 +28,7 @@ An authentication microservice built with TypeScript, following Clean Architectu
 - **Testing**: Vitest + Supertest
 - **Logging**: Pino
 - **Containerization**: Docker + Docker Compose
+- **Message Broker**: RabbitMQ (amqplib)
 - **Orchestration**: Kubernetes with Helm charts
 - **Secrets Management**: SOPS for encryption
 - **Cloud Platform**: AWS (EKS, ECR, ALB, EBS)
@@ -41,6 +43,7 @@ src/
 ├── usecases/          # Business logic and use cases
 │   ├── ports/         # Inbound and outbound port interfaces
 │   ├── dtos/          # Data transfer objects
+│   ├── events/        # Domain event constants
 │   └── errors/        # Domain-specific errors
 ├── adapters/          # Protocol adapters
 │   ├── http/          # HTTP controllers and presenters
@@ -50,6 +53,7 @@ src/
 │   ├── grpc/          # gRPC server and proto definitions
 │   ├── auth/          # JWT and password crypto implementations
 │   ├── persistence/   # Database schemas and repositories
+│   ├── messaging/     # RabbitMQ event publisher and setup script
 │   ├── validation/    # Input validators
 │   └── utils/         # Configuration and middleware
 ```
@@ -103,7 +107,7 @@ This `.env` configures both the Node.js server and Docker Compose to have matchi
 
 3. Start the PostgreSQL database
 ```bash
-docker compose up -d database
+docker compose up -d database queue
 ```
 
 4. Run database migrations
@@ -111,7 +115,12 @@ docker compose up -d database
 npx drizzle-kit push
 ```
 
-5. Start the development server
+5. Set up RabbitMQ topology
+```bash
+npm run setup:rabbitmq
+```
+
+6. Start the development server
 ```bash
 npm run dev
 ```
@@ -119,6 +128,7 @@ npm run dev
 The service will be available at:
 - HTTP REST API: `http://localhost:4000`
 - gRPC API: `localhost:50051`
+- RabbitMQ: `localhost:15672`
 
 ### Run Locally
 
@@ -132,17 +142,25 @@ Create a `.env` file in the root directory:
 ```env
 PORT=4000
 GRPC_PORT=50051
+
+JWT_SECRET=your_jwt_secret_key
+PEPPER=your_password_pepper
+
 DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=postgres
 DB_PASSWORD=your_password
 DB_NAME=auth_db
-JWT_SECRET=your_jwt_secret_key
-PEPPER=your_password_pepper
+
+RABBITMQ_HOST=localhost
+RABBITMQ_PORT=5672
+RABBITMQ_UI_PORT=15672
+RABBITMQ_USER=test
+RABBITMQ_PASSWORD=test
 ```
 This `.env` configures both the Node.js server and Docker Compose to have matching configuration.
 
-3. Start the PostgreSQL database & application
+3. Start the PostgreSQL database, RabbitMQ & application
 ```bash
 docker compose up
 ```
@@ -151,15 +169,27 @@ docker compose up
 
 ### Available Scripts
 
+**Setup**
+- `npm run setup:rabbitmq` - Declare RabbitMQ exchange, queue and binding for local development
+
+**Development**
 - `npm run dev` - Start development server with hot reload
+
+**Build & Run**
 - `npm run build` - Build TypeScript to JavaScript
 - `npm start` - Run production build
+
+**Testing**
 - `npm test` - Run all tests
 - `npm run test:unit` - Run unit tests only
 - `npm run test:integration` - Run integration tests only
 - `npm run test:watch` - Run tests in watch mode
+
+**Code Quality**
 - `npm run lint` - Run ESLint
 - `npm run lint:fix` - Apply ESLint suggested fixes
+
+**Database**
 - `npm run db:studio` - Open Drizzle Studio for database management
 
 ### Running Tests
