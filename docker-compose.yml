@@ -1,6 +1,6 @@
 services:
   database:
-    container_name: auth-postgres
+    container_name: auth-postgres-test
     image: postgres:16-alpine
     environment:
       POSTGRES_DB: ${DB_NAME?missing db name}
@@ -12,7 +12,7 @@ services:
       - db_data:/var/lib/postgresql/data
   
   app:
-    container_name: auth-app
+    container_name: auth-app-test
     build:
       context: .
       dockerfile: Dockerfile
@@ -33,6 +33,16 @@ services:
       - "${GRPC_PORT?missing grpc port}:${GRPC_PORT?missing grpc port}"
     depends_on:
       - database
+
+  queue:
+    container_name: auth-queue-
+    image: rabbitmq:4.2-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER?missing rabbitmq user}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD?missing rabbitmq password}
+    ports:
+      - "${RABBITMQ_PORT?missing rabbitmq port}:15672"
+      - "${RABBITMQ_UI_PORT?missing rabbitmq port}:5672"
 
 volumes:
   db_data:
