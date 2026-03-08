@@ -33,12 +33,7 @@ export default {
     ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
     : [] as string[],
   database: {
-    host: getEnv('DB_HOST'),
-    port: Number(getEnv('DB_PORT')),
     url: buildDatabaseUrl(),
-    username: getEnv('DB_USERNAME'),
-    password: getEnv('DB_PASSWORD'),
-    databaseName: getEnv('DB_NAME')
   },
   rabbitmq: {
     url: buildRabbitMqUrl(),

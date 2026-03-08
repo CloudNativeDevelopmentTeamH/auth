@@ -83,13 +83,21 @@ Create a `.env` file in the root directory:
 ```env
 PORT=4000
 GRPC_PORT=50051
+
+JWT_SECRET=your_jwt_secret_key
+PEPPER=your_password_pepper
+
 DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=postgres
 DB_PASSWORD=your_password
 DB_NAME=auth_db
-JWT_SECRET=your_jwt_secret_key
-PEPPER=your_password_pepper
+
+RABBITMQ_HOST=localhost
+RABBITMQ_PORT=5672
+RABBITMQ_UI_PORT=15672
+RABBITMQ_USER=test
+RABBITMQ_PASSWORD=test
 ```
 This `.env` configures both the Node.js server and Docker Compose to have matching configuration.
 
