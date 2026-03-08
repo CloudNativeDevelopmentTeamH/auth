@@ -139,12 +139,6 @@ This `.env` configures both the Node.js server and Docker Compose to have matchi
 docker compose up
 ```
 
-4. Run database migrations
-```bash
-npx drizzle-kit push
-```
-Already configured via `.env`.
-
 ## Development
 
 ### Available Scripts
