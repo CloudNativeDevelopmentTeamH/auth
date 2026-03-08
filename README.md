@@ -39,23 +39,38 @@ The project follows Clean Architecture principles with the following layers:
 
 ```
 src/
-├── entities/          # Domain entities (User, Session, AuthUser)
-├── usecases/          # Business logic and use cases
-│   ├── ports/         # Inbound and outbound port interfaces
-│   ├── dtos/          # Data transfer objects
-│   ├── events/        # Domain event constants
-│   └── errors/        # Domain-specific errors
-├── adapters/          # Protocol adapters
-│   ├── http/          # HTTP controllers and presenters
-│   └── grpc/          # gRPC service implementations
-├── infrastructure/    # External concerns (API, DB, Auth, Validation)
-│   ├── api/           # Express routes and app setup
-│   ├── grpc/          # gRPC server and proto definitions
-│   ├── auth/          # JWT and password crypto implementations
-│   ├── persistence/   # Database schemas and repositories
-│   ├── messaging/     # RabbitMQ event publisher and setup script
-│   ├── validation/    # Input validators
-│   └── utils/         # Configuration and middleware
+├── server.ts              # Entry point - starts HTTP & gRPC servers
+├── entities/              # Domain entities (User, Session, AuthUser)
+├── usecases/              # Business logic and use cases
+│   ├── ports/             # Inbound and outbound port interfaces
+│   ├── dtos/              # Data transfer objects
+│   ├── events/            # Domain event constants (routing keys, exchange names)
+│   └── errors/            # Domain-specific errors
+├── adapters/              # Protocol adapters
+│   ├── http/              # HTTP controllers and presenters
+│   └── grpc/              # gRPC service implementations
+└── infrastructure/        # External concerns
+    ├── api/               # Express routes and app setup
+    ├── grpc/              # gRPC server and proto definitions
+    ├── auth/              # JWT and password crypto implementations
+    ├── persistence/       # Database schemas and repositories
+    ├── messaging/         # RabbitMQ event publisher and local setup script
+    ├── validation/        # Input validators
+    └── utils/             # Configuration and middleware
+```
+
+Additional project structure:
+
+```
+├── tests/
+│   ├── integration/           # API integration tests
+│   ├── usecases/              # Unit tests for use cases
+│   └── mocks/                 # Test doubles
+├── helm/                      # Kubernetes Helm charts
+├── drizzle/                   # Database migrations
+├── docker-compose.yml         # PostgreSQL & app containers
+├── Dockerfile                 # Application container image
+└── package.json
 ```
 
 ### Use Cases
@@ -258,38 +273,6 @@ The API returns standardized error responses:
 See [Insomnia.yaml](Insomnia.yaml)
 
 **Proto Definition:** [auth.proto](src/infrastructure/grpc/proto/auth.proto)
-
-## Project Structure
-
-```
-auth/
-├── src/
-│   ├── server.ts              # Entry point - starts HTTP & gRPC servers
-│   ├── entities/              # Domain models
-│   ├── usecases/              # Business logic
-│   │   ├── ports/             # Interface definitions
-│   │   ├── dtos/              # Data transfer objects
-│   │   └── errors/            # Custom error classes
-│   ├── adapters/              # Protocol adapters
-│   │   ├── http/              # HTTP controllers and presenters
-│   │   └── grpc/              # gRPC service implementations
-│   └── infrastructure/        # Technical implementations
-│       ├── api/               # Express setup and routes
-│       ├── grpc/              # gRPC server and proto files
-│       ├── auth/              # JWT and password handling
-│       ├── persistence/       # Database layer
-│       ├── validation/        # Input validators
-│       └── utils/             # Config and middleware
-├── tests/
-│   ├── integration/           # API integration tests
-│   ├── usecases/              # Unit tests for use cases
-│   └── mocks/                 # Test doubles
-├── helm/                      # Kubernetes Helm charts
-├── drizzle/                   # Database migrations
-├── docker-compose.yml         # PostgreSQL & app containers
-├── Dockerfile                 # Application container image
-└── package.json
-```
 
 ## Kubernetes Deployment
 
