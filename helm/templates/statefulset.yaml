@@ -26,6 +26,7 @@ spec:
         image: "{{ .Values.postgres.image.repository }}:{{ .Values.postgres.image.tag }}"
         ports:
         - containerPort: {{ .Values.postgres.port }}
+          name: postgres
         volumeMounts:
           - name: data
             mountPath: /var/lib/postgresql/data
@@ -40,3 +41,54 @@ spec:
             secretKeyRef:
               name: secrets
               key: DB_PASSWORD
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: secrets
+              key: DB_USERNAME
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rabbitmq-statefulset
+  namespace: {{ .Values.namespace }}
+spec:
+  serviceName: {{ .Values.rabbitmq.serviceName }}
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: queue-pv-claim
+
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+      - name: rabbitmq
+        image: "{{ .Values.rabbitmq.image.repository }}:{{ .Values.rabbitmq.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.rabbitmq.port }}
+          name: amqp
+        - containerPort: {{ .Values.rabbitmq.managementPort }}
+          name: management
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/rabbitmq
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          valueFrom:
+            secretKeyRef:
+              name: secrets
+              key: RABBITMQ_USER
+        - name: RABBITMQ_DEFAULT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: secrets
+              key: RABBITMQ_PASSWORD

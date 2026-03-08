@@ -68,7 +68,7 @@ Additional project structure:
 │   └── mocks/                 # Test doubles
 ├── helm/                      # Kubernetes Helm charts
 ├── drizzle/                   # Database migrations
-├── docker-compose.yml         # PostgreSQL & app containers
+├── docker-compose.yml         # PostgreSQL, RabbiqMQ & app containers
 ├── Dockerfile                 # Application container image
 └── package.json
 ```

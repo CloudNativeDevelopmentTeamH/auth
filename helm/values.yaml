@@ -26,4 +26,13 @@ postgres:
     repository: postgres
     tag: "16-alpine"
   database: "auth"
-  user: "test"
+
+# RabbitMQ configuration
+rabbitmq:
+  serviceName: rabbitmq
+  port: 5672
+  managementPort: 15672
+  image:
+    repository: rabbitmq
+    tag: "4.0-management-alpine"
+  
