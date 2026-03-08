@@ -1,6 +1,6 @@
 import { beforeEach, expect, it } from "vitest";
 import RegisterUser from "../../src/usecases/register.ts";
-import { MockUserRepository, MockValidator, MockPasswordCrypto } from "../mocks/mocks.ts";
+import { MockUserRepository, MockValidator, MockPasswordCrypto, MockEventPublisher } from "../mocks/mocks.ts";
 import type RegisterUserInputDTO from "../../src/usecases/dtos/register-user-input.ts";
 import type Validator from "../../src/usecases/ports/outbound/validator.ts";
 import type { ValidatorResult } from "../../src/usecases/ports/outbound/validator.ts";
@@ -10,6 +10,7 @@ import ConflictError from "../../src/usecases/errors/conflict.ts";
 let userRepository: MockUserRepository;
 let validator: MockValidator<RegisterUserInputDTO>;
 let crypto: MockPasswordCrypto;
+let eventPublisher: MockEventPublisher;
 let registerUser: RegisterUser;
 
 const testUser = {
@@ -22,7 +23,8 @@ beforeEach(async () => {
   userRepository = new MockUserRepository();
   validator = new MockValidator<RegisterUserInputDTO>();
   crypto = new MockPasswordCrypto();
-  registerUser = new RegisterUser(userRepository, validator, crypto);
+  eventPublisher = new MockEventPublisher();
+  registerUser = new RegisterUser(userRepository, validator, crypto, eventPublisher);
 
   await userRepository.save({
     name: testUser.name,
@@ -72,7 +74,7 @@ it("throws ValidationError when input is invalid", async () => {
   }
 
   const validatorWithErrors = new MockValidatorWithErrors<RegisterUserInputDTO>();
-  const registerUserWithInvalidInput = new RegisterUser(userRepository, validatorWithErrors, crypto);
+  const registerUserWithInvalidInput = new RegisterUser(userRepository, validatorWithErrors, crypto, eventPublisher);
 
   const payload: RegisterUserInputDTO = {
     name: "New User",

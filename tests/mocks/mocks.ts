@@ -6,6 +6,7 @@ import type UserRepository from "../../src/usecases/ports/outbound/user-reposito
 import type Validator from "../../src/usecases/ports/outbound/validator.ts";
 import type { ValidatorResult } from "../../src/usecases/ports/outbound/validator.ts";
 import type TokenService from "../../src/usecases/ports/outbound/token-service.ts";
+import type EventPublisher from "../../src/usecases/ports/outbound/event-publisher.ts";
 
 class MockUserRepository implements UserRepository {
   private users: AuthUser[] = [];
@@ -81,9 +82,19 @@ class MockTokenService implements TokenService {
   }
 }
 
+class MockEventPublisher implements EventPublisher {
+  public publishedEvents: { routingKey: string; event: object }[] = [];
+
+  publish<T extends object>(routingKey: string, event: T): Promise<void> {
+    this.publishedEvents.push({ routingKey, event });
+    return Promise.resolve();
+  }
+}
+
 export {
   MockUserRepository,
   MockValidator,
   MockPasswordCrypto,
-  MockTokenService
+  MockTokenService,
+  MockEventPublisher,
 }

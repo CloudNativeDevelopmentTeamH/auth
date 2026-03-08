@@ -28,21 +28,26 @@ services:
       PEPPER: ${PEPPER?missing pepper}
       PORT: ${PORT?missing app port}
       GRPC_PORT: ${GRPC_PORT?missing grpc port}
+      RABBITMQ_HOST: queue
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: ${RABBITMQ_USER?missing rabbitmq user}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD?missing rabbitmq password}
     ports:
       - "${PORT?missing app port}:${PORT?missing app port}"
       - "${GRPC_PORT?missing grpc port}:${GRPC_PORT?missing grpc port}"
     depends_on:
       - database
+      - queue
 
   queue:
-    container_name: auth-queue-
-    image: rabbitmq:4.2-alpine
+    container_name: auth-queue
+    image: rabbitmq:4.0-management-alpine
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER?missing rabbitmq user}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD?missing rabbitmq password}
     ports:
-      - "${RABBITMQ_PORT?missing rabbitmq port}:15672"
-      - "${RABBITMQ_UI_PORT?missing rabbitmq port}:5672"
+      - "${RABBITMQ_PORT?missing rabbitmq port}:5672"
+      - "${RABBITMQ_UI_PORT?missing rabbitmq ui port}:15672"
 
 volumes:
   db_data:

@@ -16,6 +16,14 @@ function buildDatabaseUrl(): string {
   return `postgresql://${username}:${password}@${host}:${port}/${databaseName}`;
 }
 
+function buildRabbitMqUrl(): string {
+  const host = getEnv('RABBITMQ_HOST');
+  const port = getEnv('RABBITMQ_PORT');
+  const user = getEnv('RABBITMQ_USER');
+  const password = getEnv('RABBITMQ_PASSWORD');
+  return `amqp://${user}:${password}@${host}:${port}`;
+}
+
 export default {
   port: Number(getEnv('PORT')),
   grpcPort: Number(getEnv('GRPC_PORT')),
@@ -31,5 +39,8 @@ export default {
     username: getEnv('DB_USERNAME'),
     password: getEnv('DB_PASSWORD'),
     databaseName: getEnv('DB_NAME')
-  }
+  },
+  rabbitmq: {
+    url: buildRabbitMqUrl(),
+  },
 };

@@ -11,10 +11,12 @@ import JwtTokenService from "../auth/jwt-token-service.ts";
 import PostgresUserRepository from "../persistence/postgres-user-repository.ts";
 import RegisterUserValidator from "../validation/register-validator.ts";
 import LoginUserValidator from "../validation/login-validator.ts";
+import RabbitMqEventPublisher from "../messaging/rabbitmq-event-publisher.ts";
 
 const userRepository = new PostgresUserRepository();
 const tokenService = new JwtTokenService();
 const crypto = new ArgonPasswordCrypto();
+const eventPublisher = new RabbitMqEventPublisher();
 
 const validators = {
   register: RegisterUserValidator,
@@ -22,7 +24,7 @@ const validators = {
 }
 
 const usecases = {
-  registerUser: new RegisterUser(userRepository, validators.register, crypto),
+  registerUser: new RegisterUser(userRepository, validators.register, crypto, eventPublisher),
   loginUser: new LoginUser(userRepository, validators.login, crypto, tokenService),
   fetchUserProfile: new FetchUserProfile(tokenService, userRepository),
   logoutUser: new LogoutUser(tokenService),
