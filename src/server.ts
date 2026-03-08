@@ -1,4 +1,4 @@
-import app from './infrastructure/api/app.js';
+import app from './infrastructure/api/app.ts';
 import config from './infrastructure/utils/config.ts';
 import { createGrpcServer, startGrpcServer } from './infrastructure/grpc/grpc-server.ts';
 
