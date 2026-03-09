@@ -13,7 +13,7 @@ import { USER_REGISTERED, USER_EVENTS_EXCHANGE} from '../../usecases/events/even
 
 const EXCHANGE      = USER_EVENTS_EXCHANGE;
 const EXCHANGE_TYPE = 'topic';
-const QUEUE         = `${USER_REGISTERED}.dev`;
+const QUEUE         = USER_REGISTERED;
 const ROUTING_KEY   = USER_REGISTERED;
 
 async function setup(): Promise<void> {
