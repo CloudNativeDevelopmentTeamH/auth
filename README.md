@@ -178,6 +178,7 @@ This `.env` configures both the Node.js server and Docker Compose to have matchi
 ```bash
 docker compose up
 ```
+The entrypoint of the application will automatically run table creation/migration for PostgreSQL & setup the topology for RabbitMQ.
 
 ## Development
 
