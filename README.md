@@ -88,7 +88,6 @@ Additional project structure:
 
 - Node.js 18+ 
 - Docker and Docker Compose
-- PostgreSQL (or use Docker Compose)
 
 ### Development Mode (with hot reload)
 
