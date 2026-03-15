@@ -107,15 +107,15 @@ PEPPER=your_password_pepper
 
 DB_HOST=localhost
 DB_PORT=5432
-DB_USERNAME=postgres
-DB_PASSWORD=your_password
-DB_NAME=auth_db
+DB_NAME=auth
+DB_USERNAME=user
+DB_PASSWORD=password
 
 RABBITMQ_HOST=localhost
 RABBITMQ_PORT=5672
 RABBITMQ_UI_PORT=15672
-RABBITMQ_USER=test
-RABBITMQ_PASSWORD=test
+RABBITMQ_USER=user
+RABBITMQ_PASSWORD=password
 ```
 This `.env` configures both the Node.js server and Docker Compose to have matching configuration.
 
@@ -162,15 +162,15 @@ PEPPER=your_password_pepper
 
 DB_HOST=localhost
 DB_PORT=5432
-DB_USERNAME=postgres
-DB_PASSWORD=your_password
-DB_NAME=auth_db
+DB_NAME=auth
+DB_USERNAME=user
+DB_PASSWORD=password
 
 RABBITMQ_HOST=localhost
 RABBITMQ_PORT=5672
 RABBITMQ_UI_PORT=15672
-RABBITMQ_USER=test
-RABBITMQ_PASSWORD=test
+RABBITMQ_USER=user
+RABBITMQ_PASSWORD=password
 ```
 This `.env` configures both the Node.js server and Docker Compose to have matching configuration.
 

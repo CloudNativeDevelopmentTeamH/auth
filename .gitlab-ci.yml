@@ -61,6 +61,7 @@ integration-test:
   image: node:24-alpine
   services:
     - postgres:16-alpine
+    - rabbitmq:4.0-alpine
   variables:
     POSTGRES_DB: auth_test
     POSTGRES_USER: user
@@ -74,11 +75,12 @@ integration-test:
     PEPPER: test_pepper_value_for_ci
     PORT: "4000"
     GRPC_PORT: "50051"
-    RABBITMQ_HOST: localhost
-    RABBITMQ_PORT: 5672
-    RABBITMQ_UI_PORT: 15672
-    RABBITMQ_USER: test
-    RABBITMQ_PASSWORD: test
+    RABBITMQ_DEFAULT_USER: user
+    RABBITMQ_DEFAULT_PASS: password
+    RABBITMQ_HOST: rabbitmq
+    RABBITMQ_PORT: "5672"
+    RABBITMQ_USER: user
+    RABBITMQ_PASSWORD: password
   before_script:
     - npm ci
     - npx drizzle-kit push
