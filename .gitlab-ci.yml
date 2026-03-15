@@ -67,9 +67,9 @@ integration-test:
     POSTGRES_PASSWORD: password
     DB_HOST: postgres
     DB_PORT: "5432"
-    DB_NAME: $POSTGRES_DB
-    DB_USERNAME: $POSTGRES_USER
-    DB_PASSWORD: $POSTGRES_PASSWORD
+    DB_NAME: auth_test
+    DB_USERNAME: user
+    DB_PASSWORD: password
     JWT_SECRET: test_jwt_secret_key_for_ci
     PEPPER: test_pepper_value_for_ci
     PORT: "4000"
@@ -134,3 +134,4 @@ deploy-eks-prod:
   script:
     - sops -d ./helm/templates/secrets.enc.yaml > ./helm/templates/secrets.yaml
     - helm upgrade auth ./helm --namespace auth
+  when: manual
