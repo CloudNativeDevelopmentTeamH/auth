@@ -120,6 +120,7 @@ push-image-ghcr:
   script:
     - skopeo copy --src-creds "$HARBOR_ROBOT_NAME:$HARBOR_ROBOT_TOKEN" --dest-creds "$GHCR_USERNAME:$GHCR_TOKEN" "docker://$HARBOR_IMAGE:$APP_VERSION" "docker://$GHCR_IMAGE:$APP_VERSION"
     - skopeo copy --src-creds "$HARBOR_ROBOT_NAME:$HARBOR_ROBOT_TOKEN" --dest-creds "$GHCR_USERNAME:$GHCR_TOKEN" "docker://$HARBOR_IMAGE:latest" "docker://$GHCR_IMAGE:latest"
+  when: manual
 
 push-image-ecr:
   stage: 🏗️ build

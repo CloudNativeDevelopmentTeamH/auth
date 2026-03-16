@@ -6,12 +6,9 @@ auth:
   port: 4000
   grpcPort: 50051
   image:
-    repository: 758280076486.dkr.ecr.eu-central-1.amazonaws.com/focusboard/auth
+    repository: ghcr.io/cloudnativedevelopmentteamh/focusboard/auth:latest
     tag: latest
   replicas: 2
-  serviceAccount:
-    name: eks-service-account
-    roleArn: "arn:aws:iam::758280076486:role/eks-auth-ecr-access-role"
 
   env:
     corsOrigin: "https://k8s-frontend-frontend-fe6f13f88d-1209588435.eu-central-1.elb.amazonaws.com,https://k8s-focus-focusing-a37b3eb8d5-2089895283.eu-central-1.elb.amazonaws.com"
