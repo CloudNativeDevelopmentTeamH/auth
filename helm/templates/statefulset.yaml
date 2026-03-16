@@ -19,7 +19,7 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: db-pv-claim
+          claimName: {{ .Values.postgres.persistence.claimName }}
 
       containers:
       - name: postgres
@@ -63,7 +63,7 @@ spec:
   volumes:
     - name: data
       persistentVolumeClaim:
-        claimName: queue-pv-claim
+        claimName: {{ .Values.rabbitmq.persistence.claimName }}
 
   template:
     metadata:

@@ -1,7 +1,5 @@
 namespace: auth
 
-certificateArn: "arn:aws:acm:eu-central-1:758280076486:certificate/946198a1-757c-4868-8e17-e2446087313f"
-
 # App configuration
 auth:
   name: auth-app
@@ -26,6 +24,9 @@ postgres:
     repository: postgres
     tag: "16-alpine"
   database: "auth"
+  persistence:
+    claimName: auth-postgres-pvc
+    size: 1Gi
 
 # RabbitMQ configuration
 rabbitmq:
@@ -35,4 +36,7 @@ rabbitmq:
   image:
     repository: rabbitmq
     tag: "4.0-management-alpine"
+  persistence:
+    claimName: auth-rabbitmq-pvc
+    size: 1Gi
   
