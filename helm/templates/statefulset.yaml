@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: postgres-statefulset
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace | quote }}
 spec:
   serviceName: {{ .Values.postgres.serviceName }}
 
@@ -52,7 +52,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: rabbitmq-statefulset
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace | quote }}
 spec:
   serviceName: {{ .Values.rabbitmq.serviceName }}
   replicas: 1
