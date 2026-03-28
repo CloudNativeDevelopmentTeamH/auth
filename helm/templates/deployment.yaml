@@ -16,7 +16,7 @@ spec:
         app: {{ .Values.auth.name }}
     spec:
       imagePullSecrets:
-        - name: {{ .Values.pullSecret.name }}
+        - name: {{ .Values.auth.pullSecret.name }}
       containers:
        - name: {{ .Values.auth.name }}
          image: "{{ .Values.auth.image.repository }}:{{ .Values.auth.image.tag }}"
@@ -26,7 +26,7 @@ spec:
             protocol: TCP
          envFrom:
          - configMapRef:
-             name: app-config
+             name: {{ .Values.auth.configmap.name }}
          - secretRef:
-             name: secrets
+             name: {{ .Values.auth.secret.name }}
              

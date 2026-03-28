@@ -32,19 +32,19 @@ spec:
             mountPath: /var/lib/postgresql/data
         envFrom:
         - configMapRef:
-            name: postgres-config
+            name: {{ .Values.postgres.configmap.name }}
         env:
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: secrets
+              name: {{ .Values.secrets.name }}
               key: DB_PASSWORD
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
-              name: secrets
+              name: {{ .Values.secrets.name }}
               key: DB_USERNAME
 
 ---
@@ -85,10 +85,10 @@ spec:
         - name: RABBITMQ_DEFAULT_USER
           valueFrom:
             secretKeyRef:
-              name: secrets
+              name: {{ .Values.secrets.name }}
               key: RABBITMQ_USER
         - name: RABBITMQ_DEFAULT_PASS
           valueFrom:
             secretKeyRef:
-              name: secrets
+              name: {{ .Values.secrets.name }}
               key: RABBITMQ_PASSWORD

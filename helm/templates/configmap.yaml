@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres-config
+  name: {{ .Values.postgres.configmap.name }}
   namespace: {{ .Values.namespace | quote  }}
 data:
   POSTGRES_DB: {{ .Values.postgres.database }}
@@ -10,7 +10,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: app-config
+  name: {{ .Values.auth.configmap.name }}
   namespace: {{ .Values.namespace | quote }}
 data:
   # Database configuration

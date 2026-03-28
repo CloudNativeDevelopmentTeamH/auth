@@ -11,12 +11,8 @@ auth:
   replicas: 2
   env:
     corsOrigin: "https://k8s-frontend-frontend-fe6f13f88d-1209588435.eu-central-1.elb.amazonaws.com,https://k8s-focus-focusing-a37b3eb8d5-2089895283.eu-central-1.elb.amazonaws.com"
-
-authSecrets:
-  name: auth-secrets
-
-pullSecret:
-  name: ghcr-auth-secret
+  configmap:
+    name: app-config
 
 # PostgreSQL configuration
 postgres:
@@ -29,6 +25,8 @@ postgres:
   persistence:
     claimName: auth-postgres-pvc
     size: 1Gi
+  configmap:
+    name: postgres-config
 
 # RabbitMQ configuration
 rabbitmq:

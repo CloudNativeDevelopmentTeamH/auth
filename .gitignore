@@ -1,5 +1,4 @@
 node_modules/
 .env
 dist/
-*secret*.yaml
-!*.enc.yaml
+secret_values.yaml
