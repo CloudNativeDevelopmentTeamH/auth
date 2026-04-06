@@ -307,21 +307,22 @@ The [values.yaml](helm/values.yaml) file contains all configurable parameters:
 # Application settings
 auth:
   name: auth-app
-  port: 80
+  port: 4000
   grpcPort: 50051
   image:
-    repository: <your-ecr-repo>/auth
+    repository: ghcr.io/cloudnativedevelopmentteamh/focusboard/auth
     tag: latest
   replicas: 2
+  env:
+    corsOrigin: "https://k8s-frontend-frontend-fe6f13f88d-1209588435.eu-central-1.elb.amazonaws.com,https://k8s-focus-focusing-a37b3eb8d5-2089895283.eu-central-1.elb.amazonaws.com"
+  configmap:
+    name: app-config
 
-# PostgreSQL settings
+# PostgreSQL configuration
 postgres:
   serviceName: database
-  port: 5432
-  database: "auth"
-  user: "test"
+...
 ```
-
 ### Secrets Management
 
 The project includes an encrypted secrets file [secrets.enc.yaml](helm/templates/secrets.enc.yaml) managed with [SOPS](https://github.com/mozilla/sops).
@@ -330,7 +331,8 @@ The project includes an encrypted secrets file [secrets.enc.yaml](helm/templates
 
 ```bash
 # Decrypt the encrypted secrets file
-sops -d helm/templates/secrets.enc.yaml > helm/templates/secrets.yaml
+export SOPS_AGE_KEY="age1q9w5v5l5j5k5l5m5n5o5p5q5r5s5t5u5v5w5x5y5z5a5b5c5d5e5f"
+sops -d ./helm/secrets.enc.yaml > ./helm/secret_values.yaml
 ```
 
 The decrypted `secrets.yaml` should contain:
@@ -343,24 +345,17 @@ metadata:
   namespace: auth
 type: Opaque
 stringData:
-  DB_PASSWORD: "your_database_password"
-  JWT_SECRET: "your_jwt_secret_key"
-  PEPPER: "your_password_pepper"
+  DB_PASSWORD: "database_password"
+  JWT_SECRET: "jwt_secret_key"
+  PEPPER: "password_pepper"
+  RABBITMQ_USER: "rabbitmq_user"
+  RABBITMQ_PASSWORD: "rabbitmq_password
 ```
 
 ### Deploy to Kubernetes
 
 ```bash
-helm install auth ./helm -n auth --create-namespace
-```
-
-**(!not necessary!) Initial Database Setup:**
-
-After the first deployment, you need to run database migrations. Port-forward to the PostgreSQL service and run Drizzle push:
-
-```bash
-kubectl port-forward svc/database 5432:5432 -n auth
-npx drizzle-kit push
+helm install auth ./helm -n auth --create-namespace -f ./secret_values.yaml
 ```
 
 ### Update Deployment
@@ -368,8 +363,7 @@ npx drizzle-kit push
 To update the deployment with new configurations or image versions:
 
 ```bash
-# Update values.yaml or use --set flags
-helm upgrade auth ./helm -n auth
+helm upgrade auth ./helm -n auth -f ./helm/secret_values.yaml
 ```
 
 ### Uninstall

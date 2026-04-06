@@ -55,22 +55,24 @@ metadata:
   namespace: {{ .Values.namespace | quote }}
 spec:
   serviceName: {{ .Values.rabbitmq.serviceName }}
+
   replicas: 1
   selector:
     matchLabels:
       app: rabbitmq
 
-  volumes:
-    - name: data
-      persistentVolumeClaim:
-        claimName: {{ .Values.rabbitmq.persistence.claimName }}
-
   template:
     metadata:
       labels:
         app: rabbitmq
+
     spec:
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ .Values.rabbitmq.persistence.claimName }}
       containers:
+
       - name: rabbitmq
         image: "{{ .Values.rabbitmq.image.repository }}:{{ .Values.rabbitmq.image.tag }}"
         ports:

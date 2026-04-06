@@ -1,3 +1,0 @@
-# Ignore plaintext secrets files - only use encrypted versions
-templates/*secrets.enc.yaml
-templates/*secret.enc.yaml
