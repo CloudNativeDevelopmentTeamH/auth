@@ -284,12 +284,13 @@ The Helm chart provides a complete Kubernetes deployment including:
 
 - **Application Deployment**: 2-replica deployment with configurable resources
 - **PostgreSQL StatefulSet**: Persistent database with EBS volume storage
-- **Services**: ClusterIP services for both app and database
+- **RabbitMQ StatefulSet**: Message broker for event publishing with persistent storage
+- **Services**: ClusterIP services for app, database, and RabbitMQ
 - **Ingress**: AWS ALB ingress controller integration
 - **ConfigMaps**: Environment configuration management
 - **Secrets**: Sensitive data management (encrypted)
 - **ServiceAccount**: IAM role integration for AWS ECR access
-- **PersistentVolumeClaim**: 1Gi EBS storage for PostgreSQL data
+- **PersistentVolumeClaim**: EBS storage for PostgreSQL and RabbitMQ data
 
 ### Prerequisites
 
@@ -355,7 +356,7 @@ stringData:
 ### Deploy to Kubernetes
 
 ```bash
-helm install auth ./helm -n auth --create-namespace -f ./secret_values.yaml
+helm install auth ./helm -n auth --create-namespace -f ./helm/secret_values.yaml
 ```
 
 ### Update Deployment
