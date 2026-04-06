@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ .Values.postgres.serviceName }}-service"
+  name: "{{ .Values.postgres.serviceName }}"
   namespace: {{ .Values.namespace | quote }}
 spec:
   type: ClusterIP
@@ -35,7 +35,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ .Values.rabbitmq.serviceName }}-service"
+  name: "{{ .Values.rabbitmq.serviceName }}"
   namespace: {{ .Values.namespace | quote }}
 spec:
   type: ClusterIP
