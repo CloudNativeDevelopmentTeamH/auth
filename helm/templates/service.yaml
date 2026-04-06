@@ -8,10 +8,10 @@ spec:
   selector:
     app: {{ .Values.auth.name }}
   ports:
-    - port: 80
+    - port: {{ .Values.auth.port }}
       targetPort: {{ .Values.auth.port }}
       name: http
-    - port: 50051
+    - port: {{ .Values.auth.grpcPort }}
       targetPort: {{ .Values.auth.grpcPort }}
       name: grpc
 
@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.postgres.serviceName }}
+  name: "{{ .Values.postgres.serviceName }}-service"
   namespace: {{ .Values.namespace | quote }}
 spec:
   type: ClusterIP
@@ -35,7 +35,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.rabbitmq.serviceName }}
+  name: "{{ .Values.rabbitmq.serviceName }}-service"
   namespace: {{ .Values.namespace | quote }}
 spec:
   type: ClusterIP

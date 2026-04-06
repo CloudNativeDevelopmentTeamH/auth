@@ -8,7 +8,24 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: PathPrefix(`/`)
+      match: Host(`auth.localhost`)
       services:
         - name: "{{ .Values.auth.name }}-service"
-          port: 80
+          port: {{ .Values.auth.port }}
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: rabbitmq-ingress
+  namespace: {{ .Values.namespace | quote  }}
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`rabbitmq.localhost`)
+      services:
+        - name: "{{ .Values.rabbitmq.serviceName }}-service"
+          port: {{ .Values.rabbitmq.managementPort }}
+          
