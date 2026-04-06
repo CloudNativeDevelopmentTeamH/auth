@@ -31,7 +31,6 @@ An authentication microservice built with TypeScript, following Clean Architectu
 - **Message Broker**: RabbitMQ (amqplib)
 - **Orchestration**: Kubernetes with Helm charts
 - **Secrets Management**: SOPS for encryption
-- **Cloud Platform**: AWS (EKS, ECR, ALB, EBS)
 
 ## Architecture
 
@@ -283,22 +282,21 @@ The project includes Helm charts for deploying to Kubernetes clusters with full 
 The Helm chart provides a complete Kubernetes deployment including:
 
 - **Application Deployment**: 2-replica deployment with configurable resources
-- **PostgreSQL StatefulSet**: Persistent database with EBS volume storage
+- **PostgreSQL StatefulSet**: Persistent database with persistent volume storage
 - **RabbitMQ StatefulSet**: Message broker for event publishing with persistent storage
 - **Services**: ClusterIP services for app, database, and RabbitMQ
-- **Ingress**: AWS ALB ingress controller integration
+- **Ingress**: Ingress controller integration
 - **ConfigMaps**: Environment configuration management
 - **Secrets**: Sensitive data management (encrypted)
-- **ServiceAccount**: IAM role integration for AWS ECR access
-- **PersistentVolumeClaim**: EBS storage for PostgreSQL and RabbitMQ data
+- **PersistentVolumeClaim**: Persistent storage for PostgreSQL and RabbitMQ data
 
 ### Prerequisites
 
-- Kubernetes cluster (tested on AWS EKS)
+- Kubernetes cluster (tested on k3s)
 - Helm 3.x installed
 - kubectl configured to access your cluster
-- AWS ALB Ingress Controller installed (for ingress)
-- Container image pushed to ECR or container registry
+- Ingress controller running (e.g., Traefik, which comes with k3s)
+- Container image available in your container registry
 
 ### Configuration
 
@@ -378,15 +376,15 @@ kubectl delete namespace auth
 
 ### Accessing the Application
 
-After deployment, get the ingress URL:
+After deployment, get the ingress URL or IP:
 
 ```bash
 kubectl get ingress -n auth
 ```
 
-The ALB DNS name will be shown in the ADDRESS column. Access your API at:
+Access your API at the reported host or via your k3s node's IP:
 ```
-http://<alb-dns-name>/api/auth/health
+http://<ingress-host-or-ip>/health
 ```
 
 ## License
