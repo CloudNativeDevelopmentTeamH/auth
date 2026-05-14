@@ -26,6 +26,8 @@ services:
     ports:
       - "${RABBITMQ_PORT?missing rabbitmq port}:5672"
       - "${RABBITMQ_UI_PORT?missing rabbitmq ui port}:15672"
+    volumes:
+      - auth_queue_data:/var/lib/rabbitmq
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "ping"]
       interval: 10s
@@ -65,4 +67,5 @@ services:
 
 volumes:
   db_data:
+  auth_queue_data:
   
