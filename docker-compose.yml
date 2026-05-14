@@ -56,6 +56,7 @@ services:
       RABBITMQ_PORT: 5672
       RABBITMQ_USER: ${RABBITMQ_USER?missing rabbitmq user}
       RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD?missing rabbitmq password}
+      DOCKER_ENV: "true"
     ports:
       - "${PORT?missing app port}:${PORT?missing app port}"
       - "${GRPC_PORT?missing grpc port}:${GRPC_PORT?missing grpc port}"
@@ -64,6 +65,7 @@ services:
         condition: service_healthy
       queue:
         condition: service_healthy
+    restart: unless-stopped
 
 volumes:
   db_data:
