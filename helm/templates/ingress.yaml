@@ -8,7 +8,7 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: Host(`auth.localhost`)
+      match: Host(`{{ .Values.auth.host }}`)
       services:
         - name: "{{ .Values.auth.name }}-service"
           port: {{ .Values.auth.port }}
@@ -24,7 +24,7 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: Host(`rabbitmq.localhost`)
+      match: Host(`{{ .Values.rabbitmq.host }}`)
       services:
         - name: "{{ .Values.rabbitmq.serviceName }}-service"
           port: {{ .Values.rabbitmq.managementPort }}

@@ -5,6 +5,7 @@ auth:
   name: auth-app
   port: 4000
   grpcPort: 50051
+  host: auth.localhost
   image:
     repository: ghcr.io/cloudnativedevelopmentteamh/focusboard/auth
     tag: latest
@@ -33,6 +34,7 @@ rabbitmq:
   serviceName: rabbitmq
   port: 5672
   managementPort: 15672
+  host: rabbitmq.localhost
   image:
     repository: rabbitmq
     tag: "4.0-management-alpine"
