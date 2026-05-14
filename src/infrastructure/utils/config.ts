@@ -29,6 +29,9 @@ export default {
   grpcPort: Number(getEnv('GRPC_PORT')),
   pepper: getEnv('PEPPER'),
   jwtSecret: getEnv('JWT_SECRET'),
+  runtime: {
+    isDocker: process.env.DOCKER_ENV === 'true',
+  },
   corsOrigins: process.env.CORS_ORIGIN 
     ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
     : [] as string[],

@@ -1,13 +1,15 @@
 import express from "express";
 import controller from "../auth.container.ts";
+import config from "../../utils/config.ts";
 
 const COOKIE_NAME = "auth_token";
+const cookieSameSite = config.runtime.isDocker ? "lax" : "none";
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: true,  // REQUIRED for sameSite: "none"
+  secure: !config.runtime.isDocker, // REQUIRED for sameSite: "none"
   path: "/",
   maxAge: 24 * 60 * 60 * 1000,
-  sameSite: "none" as const,  // Allows cross-site cookies with credentials
+  sameSite: cookieSameSite as "lax" | "none",
   // REQUIRES HTTPS: secure: true is mandatory with sameSite: "none"
 }
 
